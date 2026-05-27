@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Programme Neuro Judoka — TrainingJudo</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#FF5757;--orange:#FFBD59;--green:#7ED957;
+  --bg:#0F0F0F;--card:#1A1A1A;--card2:#222;--border:#2D2D2D;
+  --white:#F5F5F5;--gray:#9CA3AF;--dim:#4B5563;
+  --radius:14px;--font:system-ui,-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--white);min-height:100vh;font-size:15px;line-height:1.5}
+
+/* ── HEADER ─────────────────────────────────────────── */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(15,15,15,0.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);padding:14px 20px;
+}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.logo{font-size:17px;font-weight:900;letter-spacing:0.05em;color:var(--white);white-space:nowrap}
+.logo span{color:var(--red)}
+.progress-wrap{flex:1;display:flex;flex-direction:column;gap:4px}
+.progress-label{font-size:11px;font-weight:700;color:var(--gray);letter-spacing:0.1em;display:flex;justify-content:space-between}
+.progress-bar{height:6px;background:var(--border);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;border-radius:99px;background:linear-gradient(to right,var(--red),var(--orange));transition:width .5s ease}
+
+/* ── NAME INPUT ──────────────────────────────────────── */
+.name-wrap{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.name-input{
+  background:var(--card2);border:1px solid var(--border);border-radius:8px;
+  color:var(--white);font-family:var(--font);font-size:13px;font-weight:700;
+  padding:6px 12px;width:140px;outline:none;transition:border-color .15s;
+}
+.name-input:focus{border-color:var(--orange)}
+.name-input::placeholder{color:var(--dim);font-weight:400}
+.name-label{font-size:10px;font-weight:700;letter-spacing:0.15em;color:var(--dim);text-transform:uppercase;white-space:nowrap}
+
+/* ── SHEETS STATUS ───────────────────────────────────── */
+.sheets-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--dim);flex-shrink:0;
+  transition:background .3s;
+}
+.sheets-dot.ok{background:var(--green)}
+.sheets-dot.err{background:var(--red)}
+.sheets-dot.loading{background:var(--orange);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── MAIN LAYOUT ─────────────────────────────────────── */
+.container{max-width:900px;margin:0 auto;padding:24px 20px 80px}
+
+/* ── PHASE BAR ───────────────────────────────────────── */
+.phase-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+.phase-btn{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:10px 8px;text-align:center;cursor:pointer;transition:.2s;
+}
+.phase-btn:hover{border-color:var(--dim)}
+.phase-btn.active{border-color:var(--orange)}
+.phase-name{font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
+.phase-weeks{display:flex;justify-content:center;gap:4px;flex-wrap:wrap}
+.week-dot{
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;cursor:pointer;transition:.15s;
+  background:var(--border);color:var(--gray);border:2px solid transparent;
+}
+.week-dot:hover{background:var(--dim);color:var(--white)}
+.week-dot.current{background:var(--red);color:#0F0F0F;border-color:transparent}
+.week-dot.done{background:rgba(126,217,87,0.2);color:var(--green);border-color:var(--green)}
+
+/* ── WEEK HEADER ─────────────────────────────────────── */
+.week-header{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:16px}
+.week-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.week-nav-btn{
+  background:var(--card2);border:1px solid var(--border);border-radius:8px;
+  padding:6px 14px;font-size:13px;font-weight:700;color:var(--gray);cursor:pointer;transition:.15s;
+}
+.week-nav-btn:hover:not(:disabled){background:var(--border);color:var(--white)}
+.week-nav-btn:disabled{opacity:0.3;cursor:default}
+.week-badge{display:flex;align-items:center;gap:10px}
+.week-tag{background:var(--red);color:#0F0F0F;font-size:11px;font-weight:900;padding:4px 12px;border-radius:6px;letter-spacing:0.1em;text-transform:uppercase}
+.phase-tag{font-size:11px;font-weight:700;color:var(--orange);letter-spacing:0.15em;text-transform:uppercase}
+.week-title{font-size:24px;font-weight:900;letter-spacing:-0.02em;margin-bottom:6px}
+.week-goal{font-size:13px;color:var(--gray);line-height:1.5;padding:10px 14px;background:var(--card2);border-radius:8px;border-left:3px solid var(--orange)}
+.week-progress-row{display:flex;align-items:center;gap:10px;margin-top:14px}
+.week-progress-bar{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden}
+.week-progress-fill{height:100%;border-radius:99px;background:var(--green);transition:width .4s ease}
+.week-progress-label{font-size:11px;font-weight:700;color:var(--green);min-width:32px;text-align:right}
+
+/* ── SÉANCE CARDS ────────────────────────────────────── */
+.seance-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.seance-header{
+  display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;
+  transition:background .15s;user-select:none;
+}
+.seance-header:hover{background:var(--card2)}
+.seance-num{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:900;color:#0F0F0F;
+}
+.seance-info{flex:1}
+.seance-title{font-size:15px;font-weight:800;color:var(--white);margin-bottom:2px}
+.seance-meta{display:flex;gap:8px;align-items:center}
+.seance-time{font-size:11px;font-weight:700;color:var(--gray)}
+.seance-tag-pill{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px}
+.seance-check{width:22px;height:22px;flex-shrink:0}
+.seance-check input{width:22px;height:22px;accent-color:var(--green);cursor:pointer}
+.seance-chevron{font-size:12px;color:var(--dim);transition:transform .25s;flex-shrink:0}
+.seance-card.open .seance-chevron{transform:rotate(180deg)}
+
+.seance-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border)}
+.seance-card.open .seance-body{display:block}
+
+/* ── EXERCISES ───────────────────────────────────────── */
+.exo-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.exo{background:var(--card2);border-radius:10px;padding:14px 16px;border-left:3px solid var(--border)}
+.exo-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.exo-icon{font-size:20px;line-height:1;flex-shrink:0;margin-top:1px}
+.exo-name{font-size:13px;font-weight:800;color:var(--white);line-height:1.2}
+.exo-dose{font-size:11px;font-weight:700;color:var(--orange);margin-top:2px}
+.exo-steps{list-style:none;display:flex;flex-direction:column;gap:5px}
+.exo-steps li{font-size:12.5px;color:var(--gray);line-height:1.45;display:flex;gap:8px}
+.exo-step-num{
+  min-width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:900;color:#0F0F0F;flex-shrink:0;margin-top:1px;
+}
+.exo-why{font-size:11.5px;color:var(--dim);font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.exo-why strong{color:var(--gray);font-style:normal}
+
+/* ── FEEDBACK ────────────────────────────────────────── */
+.feedback-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-top:16px}
+.feedback-title{font-size:15px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.feedback-subtitle{font-size:12px;color:var(--gray);margin-bottom:14px}
+.feedback-q{font-size:13px;font-weight:700;color:var(--orange);margin-top:12px;padding:10px 14px;background:var(--card2);border-radius:8px;border-left:3px solid var(--orange)}
+.feedback-q:first-of-type{margin-top:8px}
+
+/* ── PROGRESS DASHBOARD ──────────────────────────────── */
+.dashboard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:20px}
+.dashboard-title{font-size:15px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.dash-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+.dash-week{
+  aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;cursor:pointer;transition:.15s;
+  background:var(--card2);border:1px solid var(--border);
+  font-size:11px;font-weight:800;color:var(--gray);
+}
+.dash-week:hover{border-color:var(--dim);color:var(--white)}
+.dash-week.current-dash{border-color:var(--red);color:var(--red)}
+.dash-week.done-dash{background:rgba(126,217,87,0.12);border-color:var(--green);color:var(--green)}
+.dash-check{font-size:14px;line-height:1}
+
+/* ── PHASE TITLE ─────────────────────────────────────── */
+.phase-divider{text-align:center;margin:18px 0 10px;font-size:11px;font-weight:700;letter-spacing:0.3em;color:var(--dim);text-transform:uppercase}
+
+/* ── MOBILE ──────────────────────────────────────────── */
+@media(max-width:600px){
+  .phase-bar{grid-template-columns:repeat(2,1fr)}
+  .dash-grid{grid-template-columns:repeat(6,1fr)}
+  .week-title{font-size:19px}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">TRAINING<span>JUDO</span></div>
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>PROGRESSION GLOBALE</span>
+        <span id="global-pct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="global-fill" style="width:0%"></div></div>
+    </div>
+    <div class="name-wrap">
+      <span class="name-label">Judoka</span>
+      <input class="name-input" id="judoka-name" type="text" placeholder="Ton prénom" maxlength="30"
+        oninput="saveJudokaName(this.value)" autocomplete="off"/>
+      <div class="sheets-dot" id="sheets-dot" title="Statut Google Sheets"></div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Dashboard progression -->
+  <div class="dashboard">
+    <div class="dashboard-title">📊 Mes 12 semaines</div>
+    <div class="dash-grid" id="dash-grid"></div>
+  </div>
+
+  <!-- Phase bar -->
+  <div class="phase-bar" id="phase-bar"></div>
+
+  <!-- Week content -->
+  <div id="week-content"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DONNÉES DU PROGRAMME
+// ═══════════════════════════════════════════════
+const PHASES=[
+  {name:"Calibrage",weeks:[1,2,3],color:"var(--orange)"},
+  {name:"Construction",weeks:[4,5,6],color:"var(--green)"},
+  {name:"Pression",weeks:[7,8,9],color:"var(--red)"},
+  {name:"Peak",weeks:[10,11,12],color:"var(--orange)"},
+];
+
+// Matériel utilisé dans les exercices — tout disponible à la maison :
+// • Jeu de cartes ou objets colorés (rouge/orange/vert/bleu)
+// • Dé à 6 faces
+// • Chronomètre (téléphone)
+// • Partenaire (parent, copine, ami) pour les signaux aléatoires
+// • Stylo + carnet
+
+const PROGRAM={
+  1:{
+    title:"Calibrage — Découvrir ses lignes de base",
+    goal:"Mesurer où tu en es aujourd'hui sur 3 capacités clés : réaction visuelle, attention et régulation du stress. Pas de performance à atteindre — juste observer et noter.",
+    seances:[
+      {
+        title:"Réaction Visuelle — Test de Base",duration:15,color:"var(--red)",tag:"Entrée visuelle",
+        exos:[
+          {icon:"🃏",name:"Jeu de Cartes Réaction",dose:"3 séries × 10 cartes — note ton score",
+           steps:["Partenaire tient un jeu de cartes face cachée","Il retourne une carte : rouge = tu frappes dans les mains UNE FOIS, noir = tu restes immobile","Compter les bonnes réponses sur 10 — note le score dans un carnet","Règle simple : si tu bouges sur une carte noire, c'est raté","Mesure ce que tu fais VRAIMENT, pas ce que tu penses faire"],
+           why:"Développe la voie visuo-motrice — la vitesse à laquelle ton cerveau traite une information visuelle et déclenche (ou bloque) une réponse motrice. C'est le mécanisme de base derrière chaque entrée en technique."},
+          {icon:"⏱",name:"Chrono de Réaction Brute",dose:"10 essais — note la moyenne",
+           steps:["Partenaire tient une règle ou un stylo verticalement entre tes doigts ouverts (main à hauteur de poitrine)","Il lâche sans te prévenir — tu l'attrapes le plus vite possible","Mesure le niveau auquel tu l'attrapes (plus haut = plus lent)","Note la distance en cm sur les 10 essais — calcule la moyenne","C'est ta ligne de base semaine 1"],
+           why:"Ce test mesure le temps de réaction pur — sans décision. Il sert de référence pour voir ta progression sur 12 semaines."},
+          {icon:"🦾",name:"Test Kinesthésique de Base — Sens du Bras",dose:"5 répétitions — note l'écart",
+           steps:["Debout, bras droit tendu à l'horizontale sur le côté — mémorise cette position","Ferme les yeux et baisse le bras","Remonte-le exactement à la même hauteur que tu penses l'avoir mémorisée","Ouvre les yeux — mesure l'écart en degrés ou en cm à hauteur de main","C'est ta ligne de base kinesthésique — elle va s'affiner chaque semaine"],
+           why:"Le sens de position du bras (kinesthésie articulaire) est souvent sous-développé même chez les athlètes entraînés. Cet écart initial (souvent 10-15cm) se réduit à 2-3cm avec un entraînement ciblé. Chaque centimètre gagné représente une amélioration directe de la précision du contrôle corporel."},
+        ]
+      },
+      {
+        title:"Attention Soutenue — Test de Base",duration:12,color:"var(--orange)",tag:"Attention",
+        exos:[
+          {icon:"🔢",name:"Comptage à Rebours Continu",dose:"2 minutes sans interruption — note le résultat",
+           steps:["Assis, chronomètre lancé pour 2 minutes","Compte à rebours depuis 100 par pas de 3 (100, 97, 94, 91...)","Partenaire note le nombre où tu arrives à la fin des 2 minutes","Si tu perds le fil, reprends depuis le dernier nombre connu — note le nombre de fois que tu t'es perdu"],
+           why:"Mesure l'attention soutenue et la mémoire de travail sous contrainte. En combat, ton cerveau gère simultanément ta position, celle de l'adversaire, le score, la fatigue — c'est exactement ce circuit."},
+          {icon:"📝",name:"Journal Émotionnel de Départ",dose:"3 minutes d'écriture libre",
+           steps:["Sur ton carnet, réponds à ces 3 questions en 3 minutes chrono :", "1 — Quel est ton niveau de stress habituel avant un combat ? (1 à 10)", "2 — Est-ce que tu perds la tête quand tu es en retard au score ?","3 — Qu'est-ce qui te déconcentre le plus sur le tatami ?","Ces réponses sont ta carte de départ — elles vont évoluer"],
+           why:"La conscience de soi est le premier outil de régulation émotionnelle. Sans savoir d'où tu pars, tu ne peux pas mesurer où tu arrives."},
+        ]
+      },
+      {
+        title:"Respiration & Conscience du Corps",duration:10,color:"var(--green)",tag:"Régulation interne",
+        exos:[
+          {icon:"🫁",name:"Respiration Lente Guidée — 1ère fois",dose:"5 minutes",
+           steps:["Assis ou allongé — ferme les yeux","Inspire par le nez en 4 secondes (gonfle le ventre en premier, puis la poitrine)","Expire par la bouche en 6 secondes (lèvres légèrement pincées, son doux)","Continue 5 minutes sans te forcer — si tu perds le rythme, reprends","Observe : ton esprit a-t-il dérivé ? Combien de fois ?"],
+           why:"Active le système nerveux parasympathique (frein naturel du stress). Réduire le rythme respiratoire à moins de 10 cycles/min abaisse le cortisol et améliore l'oxygénation du cortex préfrontal — la zone de la prise de décision."},
+          {icon:"🧠",name:"Scan Corporel Rapide",dose:"3 minutes",
+           steps:["Après la respiration, garde les yeux fermés","Remonte lentement du bas des pieds jusqu'au sommet du crâne","Sens : où est-ce qu'il y a de la tension ? De la chaleur ? De la lourdeur ?","Ne cherche pas à changer quoi que ce soit — juste observer et nommer","Note 2 zones du corps où tu stockes du stress"],
+           why:"L'interoception (la conscience des signaux internes du corps) est l'une des compétences les plus entraînables. Les athlètes qui lisent mieux leurs propres signaux régulent mieux leur état sous pression."},
+        ]
+      },
+    ]
+  },
+  2:{
+    title:"Entrées Visuelles — Entraîner les Yeux",
+    goal:"Ton cerveau reçoit 80% de ses informations par les yeux. Entraîner la vision, c'est entraîner la décision. Tout se fait à la maison.",
+    seances:[
+      {
+        title:"Vision Périphérique",duration:15,color:"var(--red)",tag:"Entrée visuelle",
+        exos:[
+          {icon:"👁",name:"Expansion du Champ Visuel",dose:"3 × 3 minutes",
+           steps:["Assis, fixe un point droit devant toi (un objet sur le mur) — ne bouge PAS les yeux","Partenaire déplace lentement sa main sur les côtés, au-dessus et en-dessous","Dès que tu détectes le mouvement en vision périphérique, dis 'là'","Essaie d'étendre progressivement la zone que tu peux détecter sans bouger les yeux","Progresser : partenaire lève ou baisse le nombre de doigts — tu nommes le nombre"],
+           why:"La vision périphérique est le système de détection rapide du cerveau. Elle traite le mouvement 3× plus vite que la vision centrale. L'entraîner élargit littéralement ta fenêtre de perception de l'adversaire."},
+          {icon:"🎯",name:"Tracking — Suivre Sans Perdre",dose:"4 × 2 minutes",
+           steps:["Partenaire tient un stylo et le déplace lentement dans l'espace (haut, bas, droite, gauche, diagonales)","Tu suis le stylo avec les yeux UNIQUEMENT — tête fixe","Partenaire accélère progressivement","Variante : deux objets dans chaque main — tu dois suivre les deux simultanément"],
+           why:"Développe la coordination oeil-cerveau et la capacité à suivre plusieurs éléments en même temps — utile pour lire simultanément la posture, les mains et les pieds d'un adversaire."},
+        ]
+      },
+      {
+        title:"Traitement Visuel Rapide",duration:15,color:"var(--orange)",tag:"Décision visuelle",
+        exos:[
+          {icon:"🃏",name:"Stroop des Cartes",dose:"4 séries × 8 cartes",
+           steps:["Partenaire retourne des cartes une par une rapidement","Règle : si la carte est rouge ET un chiffre pair = frappe dans les mains","Si la carte est noire OU un chiffre impair = reste immobile","Ton cerveau doit traiter deux informations en même temps avant d'agir","Note le % de bonnes réponses — objectif semaine 2 : 70%+"],
+           why:"C'est un exercice de contrôle inhibiteur — forcer le cerveau à évaluer avant d'agir plutôt que de réagir par automatisme. Développe exactement la qualité 'Voir → Choisir → Agir'."},
+          {icon:"⚡",name:"Flash et Mémorisation",dose:"5 répétitions",
+           steps:["Partenaire dispose 5 objets sur une table","Tu les regardes pendant 5 secondes puis tu te retournes","Tu dois nommer les 5 objets dans l'ordre où tu les as vus","Augmenter à 7 objets quand tu réussis 5 à la suite","Variante : partenaire enlève ou déplace 1 objet — tu identifies lequel"],
+           why:"Entraîne la mémoire visuelle à court terme (working memory visuelle). En combat, mémoriser rapidement la posture et les positions de l'adversaire est une compétence critique."},
+        ]
+      },
+      {
+        title:"Lecture de Signaux Fins",duration:12,color:"var(--green)",tag:"Anticipation visuelle",
+        exos:[
+          {icon:"🕵️",name:"Observation de Micro-Mouvements",dose:"10 minutes",
+           steps:["Partenaire est assis en face de toi, bras le long du corps","Il va initier un mouvement de bras très lentement (lever la main droite)","Tu dois dire 'maintenant' au moment précis où tu détectes l'intention de mouvement (avant que le bras parte vraiment)","Répète 15 fois — note à quel moment tu détectes (très tôt / juste / trop tard)","Objectif : détecter l'intention avant le mouvement"],
+           why:"Les micro-mouvements corporels précèdent toujours l'action visible de 0.2 à 0.4 secondes. Entraîner la détection de ces signaux faibles, c'est se créer une avance sur l'adversaire sans qu'il le sache."},
+        ]
+      },
+    ]
+  },
+  3:{
+    title:"Auditif, Tactile & Kinesthésique",
+    goal:"Les yeux ne sont pas la seule entrée. Entraîner les oreilles, la peau et le sens du mouvement — trois canaux que la plupart des athlètes n'ont jamais entraînés consciemment.",
+    seances:[
+      {
+        title:"Réaction Auditive",duration:15,color:"var(--red)",tag:"Entrée auditive",
+        exos:[
+          {icon:"👂",name:"Localisation Sonore",dose:"3 × 10 répétitions",
+           steps:["Yeux fermés — assis au milieu de la pièce","Partenaire claque des doigts à différents endroits autour de toi (gauche, droite, devant, derrière, haut, bas)","Tu pointes immédiatement dans la direction du son","Note les erreurs — les zones qui trompent le plus ton cerveau","Progresser : partenaire claque deux fois dans des endroits différents — tu dois pointer les deux dans l'ordre"],
+           why:"Le cortex auditif traite les sons directionnels en moins de 20 millisecondes. Entraîner la localisation sonore affine le système de détection rapide et complémente la vision — deux systèmes actifs valent mieux qu'un."},
+          {icon:"⚡",name:"Réaction Auditive Go/No-Go",dose:"4 séries × 10 signaux",
+           steps:["Partenaire dit des mots au rythme d'environ 1 par seconde","Règle : si c'est un animal = tu frappes dans les mains, si c'est autre chose = tu restes immobile","Partenaire accélère progressivement le rythme","Variante : inventer d'autres catégories (couleur chaud/froid, sport/nourriture...)","Note le % de bonnes réponses"],
+           why:"La réaction auditive est en moyenne 40ms plus rapide que la réaction visuelle. L'entraîner intensifie la voie nerveuse son → décision → mouvement, utile dès que l'adversaire fait un bruit, crie, ou que l'arbitre siffle."},
+        ]
+      },
+      {
+        title:"Tactile & Kinesthésique — Sentir pour Agir",duration:15,color:"var(--orange)",tag:"Kinesthésique",
+        exos:[
+          {icon:"🤲",name:"Discrimination de Texture (Yeux Fermés)",dose:"3 séries × 8 objets",
+           steps:["Partenaire rassemble 8 surfaces différentes : tissu, papier de verre, plastique lisse, bois, mousse, métal, laine, carton","Yeux fermés — partenaire pose chaque surface sur ta paume ou tes doigts","Tu nommes la texture la plus précisément possible : 'rugueux/lisse, chaud/froid, rigide/souple, épais/fin'","Puis tu identifies l'objet si tu peux","Note le % de bonnes identifications — progrès visible dès la semaine suivante"],
+           why:"La discrimination tactile fine entraîne les récepteurs de Meissner et Merkel dans les doigts — les capteurs les plus sensibles du corps humain. En judo, la qualité de ta saisie dépend directement de la précision de ces capteurs. Un toucher affiné lit l'adversaire là où les yeux ne voient pas encore."},
+          {icon:"🦾",name:"Sens Articulaire — Position sans Voir",dose:"4 × 10 répétitions",
+           steps:["Assis, yeux fermés — bras tendu devant toi","Partenaire saisit doucement ton poignet et déplace ton bras dans une position précise (angle, hauteur, direction)","Tu maintiens cette position","Partenaire relâche — tu gardes 5 secondes","Puis tu ouvres les yeux et vois l'écart entre ce que tu croyais et la réalité","Progresser : bras dans le dos — sens de position plus difficile"],
+           why:"Le sens articulaire (proprioception des articulations) informe le cerveau de la position exacte de chaque segment du corps sans regarder. Chez les judokas, un sens articulaire précis permet de contrôler son propre corps ET de sentir les déplacements de l'adversaire via les points de contact."},
+          {icon:"🌊",name:"Détection du Mouvement Passif",dose:"3 × 10 répétitions",
+           steps:["Assis, yeux fermés — bras posé et détendu sur ta cuisse","Partenaire déplace très lentement ton avant-bras dans une direction (plier, tendre, tourner)","Tu dois dire 'mouvement' au moment EXACT où tu détectes le début du mouvement","Partenaire note si tu l'as détecté tôt, juste, ou trop tard","Progresser : vitesse de mouvement encore plus lente — seuil de détection minimal"],
+           why:"Les fuseaux neuromusculaires (récepteurs intramusculaires) détectent les mouvements dès 0.1° d'angle. Les entraîner à détecter les mouvements passifs les plus subtils améliore directement la sensibilité aux micro-déséquilibres de l'adversaire transmis via la saisie."},
+        ]
+      },
+      {
+        title:"Kinesthésique Avancé — Reproduire et Mémoriser",duration:15,color:"var(--green)",tag:"Kinesthésique avancé",
+        exos:[
+          {icon:"🔄",name:"Reproduction de Mouvement Imposé",dose:"4 × 8 répétitions",
+           steps:["Yeux fermés — partenaire guide ton bras dans un mouvement complexe (ex: lever, tourner, baisser en L)","Tu mémorises le trajet exact pendant qu'il t'amène","Il relâche — tu reproduis le même mouvement seul, yeux toujours fermés","Il évalue l'écart entre l'original et ta reproduction","Progresser : deux bras en même temps, ou avec le pied/genou"],
+           why:"La kinesthésie (mémoire du mouvement) est la capacité à mémoriser et reproduire un geste uniquement par sa sensation interne. C'est la base de l'apprentissage moteur profond — et ce qui permet de 'retrouver' une technique de mémoire même sous pression et fatigue."},
+          {icon:"⚖️",name:"Discrimination de Poids et Pression",dose:"3 séries × 6 comparaisons",
+           steps:["Partenaire prépare des paires d'objets de poids légèrement différents (bouteilles à moitié pleines, sacs...)","Yeux fermés — tu tiens un objet dans chaque main","Tu dis lequel est le plus lourd","Les différences sont de plus en plus petites au fil des séries","Variante : partenaire appuie avec un doigt sur deux points de ton avant-bras simultanément — tu dis lequel appuie le plus fort"],
+           why:"La discrimination de pression entraîne les récepteurs de Ruffini et Pacini — sensibles à l'étirement et aux vibrations profondes. En judo, ces récepteurs dans les paumes, les poignets et les avants-bras transmettent l'information sur le poids et la résistance de l'adversaire avant même que le cerveau ait le temps de 'décider'."},
+          {icon:"📍",name:"Localisation Tactile Fine",dose:"3 × 10 points — note l'écart en cm",
+           steps:["Yeux fermés, bras tendu paume vers le haut","Partenaire touche un point précis sur ton avant-bras avec un stylo","Tu pointes sur l'autre bras (yeux toujours fermés) l'endroit correspondant que tu penses avoir été touché","Partenaire mesure l'écart en centimètres entre le vrai point et ton estimation","Objectif sur 12 semaines : passer de 2-3cm d'écart à moins de 1cm"],
+           why:"La localisation tactile fine mesure la densité et la précision de ta carte somatosensorielle. Réduire cet écart de 2cm à 1cm représente une réorganisation neurale mesurable du cortex sensoriel primaire — c'est de la plasticité cérébrale visible en quelques semaines."},
+        ]
+      },
+      {
+        title:"Intégration Multi-Sensorielle",duration:12,color:"var(--green)",tag:"Coordination",
+        exos:[
+          {icon:"🎮",name:"Deux Signaux — Une Réponse",dose:"4 × 8 répétitions",
+           steps:["Partenaire envoie simultanément un signal visuel (lever la main) ET un signal sonore (claquement)","Tu dois répondre à la COMBINAISON selon une règle : main levée + son fort = lève le bras gauche, main levée + son doux = lève le bras droit, etc.","Le cerveau doit intégrer deux canaux en même temps pour produire une réponse","Commence simple (2 règles) puis augmente jusqu'à 4 règles"],
+           why:"L'intégration multi-sensorielle est la capacité à combiner plusieurs flux d'information simultanément. C'est ce qui permet de lire l'adversaire, l'arbitre ET son propre équilibre en même temps en compétition."},
+          {icon:"📝",name:"Bilan de Phase 1 — 10 minutes",dose:"En fin de semaine 3",
+           steps:["Refais le test de réaction aux cartes (semaine 1) — compare le score","Refais le comptage à rebours 2 minutes — jusqu'où es-tu arrivé cette fois ?","Relis tes notes de journal émotionnel — as-tu remarqué des changements ?","Note en 3 mots : comment tu te sens par rapport à la semaine 1"],
+           why:"La mesure crée de la motivation et oriente les efforts. Le cerveau progresse mieux quand il peut comparer un avant et un après."},
+        ]
+      },
+    ]
+  },
+  4:{
+    title:"Décision Simple — Go/No-Go",
+    goal:"Développer la capacité à décider vite ET juste. Pas seulement réagir — bloquer quand il ne faut pas agir, c'est aussi une décision.",
+    seances:[
+      {
+        title:"Go/No-Go Visuel",duration:15,color:"var(--red)",tag:"Décision",
+        exos:[
+          {icon:"🃏",name:"Cartes Go/No-Go Progressif",dose:"5 séries × 12 cartes",
+           steps:["Partenaire retourne des cartes rapidement une par une","Règle de base : rouge = frappe des deux mains (Go), noir = rien (No-Go)","Série 2 : rouge pair = Go, tout le reste = No-Go (le cerveau doit filtrer plus finement)","Série 3 : partenaire accélère encore — 1 carte par seconde","Série 4 : partenaire peut répéter la même carte — tu ne dois pas t'adapter par habitude","Note le % de No-Go ratés (tu as agi alors qu'il fallait rester immobile)"],
+           why:"Les erreurs de No-Go (agir quand il ne faut pas) sont aussi coûteuses que les erreurs de Go. Sur le tatami, une fausse entrée en technique te déséquilibre et offre une opportunité à l'adversaire. Entraîner le frein est aussi important que l'accélérateur."},
+          {icon:"⚡",name:"Inhibition sous Pression Temporelle",dose:"3 séries × 15 signaux",
+           steps:["Partenaire dit des chiffres de 1 à 9 au rythme rapide","Go = chiffre supérieur à 5, No-Go = chiffre inférieur ou égal à 5","Variante : Go = chiffre impair supérieur à 3... (la règle se complexifie)","Plus la règle est complexe, plus le cortex préfrontal est sollicité","Objectif : maintenir 85%+ de précision même à rythme rapide"],
+           why:"Ce type d'exercice active massivement le cortex préfrontal latéral — la zone qui joue comme un chef d'orchestre de toutes les fonctions cognitives. C'est littéralement un entraînement du cerveau décisionnel."},
+        ]
+      },
+      {
+        title:"Inhibition de la Réponse Automatique",duration:15,color:"var(--orange)",tag:"Contrôle cognitif",
+        exos:[
+          {icon:"🔄",name:"Stroop Couleur-Mot",dose:"4 × 2 minutes",
+           steps:["Partenaire écrit des noms de couleurs sur du papier mais dans la MAUVAISE couleur (le mot 'ROUGE' écrit en bleu)","Tu dois dire la COULEUR DE L'ENCRE, pas le mot écrit","Exemple : 'ROUGE' écrit en bleu → tu dis 'bleu'","Le cerveau veut lire le mot — tu dois l'en empêcher","Note le nombre d'erreurs et le temps moyen de réponse"],
+           why:"C'est le test Stroop — l'un des exercices de contrôle cognitif les plus étudiés en neurosciences. Il entraîne l'inhibition de la réponse dominante (lire le mot) au profit d'une réponse non-dominante (nommer la couleur). En judo : résister à l'envie d'attaquer quand ce n'est pas le bon moment."},
+          {icon:"🎯",name:"Réponse Opposée",dose:"3 × 10 signaux",
+           steps:["Partenaire pointe à gauche — tu vas à droite","Partenaire dit 'assis' — tu restes debout","Partenaire dit 'lent' — tu accélères","La règle : toujours faire l'opposé exact de ce qui est demandé","Augmenter la vitesse des signaux progressivement"],
+           why:"L'exercice 'Simon Says inversé' entraîne la flexibilité de la réponse motrice et la résistance à l'automatisme. Développe la capacité à agir contre-intuitivement sous pression — précieux pour les feintes et les contres."},
+        ]
+      },
+      {
+        title:"Décision sous Charge Émotionnelle",duration:12,color:"var(--green)",tag:"Émotion + Décision",
+        exos:[
+          {icon:"😤",name:"Test de Décision après Frustration",dose:"3 cycles",
+           steps:["Cycle 1 : résous un problème simple (compter à rebours depuis 50 par 7)","Partenaire te dérange, commente, te corrige à tort pendant que tu comptes — crée de la frustration","STOP — partenaire montre un signal Go/No-Go","Tu dois répondre juste malgré l'émotion","Note si la frustration a dégradé ta précision"],
+           why:"Les émotions perturbent le cortex préfrontal — la zone de la décision. Entraîner la précision décisionnelle APRÈS une frustration, c'est immuniser le cerveau contre les perturbations émotionnelles en compétition."},
+          {icon:"🫁",name:"Réinitialisation Émotionnelle",dose:"2 minutes après chaque cycle",
+           steps:["Après chaque cycle de frustration : 5 inspirations lentes (4s inspire, 6s expire)","Nomme à voix haute l'émotion que tu viens de ressentir ('j'étais agacé')","Nommer l'émotion l'atténue — c'est prouvé par IRMf","Reprends le test suivant après 2 minutes de respiration"],
+           why:"Le simple fait de nommer une émotion réduit son activation dans l'amygdale de 30 à 50%. C'est la base de la régulation émotionnelle : percevoir, nommer, agir — pas subir."},
+        ]
+      },
+    ]
+  },
+  5:{
+    title:"Attention Divisée & Double Tâche",
+    goal:"Forcer le cerveau à gérer deux flux d'information en même temps. C'est exactement ce qu'il fait en combat.",
+    seances:[
+      {
+        title:"Double Tâche Moteur + Cognitif",duration:15,color:"var(--red)",tag:"Attention divisée",
+        exos:[
+          {icon:"🧠",name:"Marche + Calcul Mental",dose:"5 × 2 minutes",
+           steps:["Marche en cercle dans la pièce à rythme normal","Pendant que tu marches, compte à rebours depuis 100 par 3","Partenaire peut intervenir avec un signal (mot, bruit) — tu dois répondre correctement tout en continuant les deux autres tâches","Si tu perds le calcul, reprends depuis le dernier nombre — note le nombre de reprises","Progresser : ajouter une contrainte motrice (marche en arrière, sur une ligne...)"],
+           why:"Le double task entraîne la capacité de l'attention à se partager efficacement. La dégradation de performance en double task diminue avec l'entraînement — les judokas de haut niveau maintiennent leur précision décisionnelle même en plein effort physique."},
+          {icon:"🤲",name:"Tapotements Alternatifs + Séquence",dose:"4 × 90 secondes",
+           steps:["Main droite tape la cuisse droite en rythme régulier (tic tic tic...)","En même temps, main gauche fait une séquence différente : 1 tape, pause, 2 tapes, pause, 3 tapes...","Les deux mains bougent en même temps mais à des rythmes différents","Passe à des séquences plus complexes quand tu maîtrises","Variante : partenaire dit un nombre — tu dois l'intégrer dans la séquence sans interrompre le tapotement"],
+           why:"L'indépendance des deux mains à des rythmes différents développe la coordination bimanuelle et la conscience motrice divisée — utile pour gérer indépendamment les deux bras lors d'une saisie ou d'une entrée."},
+        ]
+      },
+      {
+        title:"Attention Soutenue sous Distraction",duration:15,color:"var(--orange)",tag:"Focus",
+        exos:[
+          {icon:"🎯",name:"Comptage Cible avec Distracteurs",dose:"3 × 3 minutes",
+           steps:["Partenaire dit des chiffres aléatoires de 1 à 9 à rythme régulier","Tu dois compter silencieusement uniquement les fois où il dit '7'","Partenaire essaie de te distraire : bruit, mouvement, fausse start...","À la fin des 3 minutes : tu annonces combien de '7' tu as compté","Il te donne la vraie réponse — note l'écart"],
+           why:"La détection de cibles rares parmi des distracteurs nombreux mesure l'attention soutenue sélective. En combat, c'est la capacité à repérer le signal faible (le micro-déséquilibre) dans le bruit de la confrontation physique."},
+          {icon:"😌",name:"Mindfulness Courte — 5 minutes",dose:"1 fois en fin de séance",
+           steps:["Assis ou allongé, yeux fermés","Observe tes pensées sans les suivre — comme des nuages qui passent","Quand une pensée t'emporte, remarque-le et reviens à ta respiration","Ne te juge pas — le simple fait de remarquer que tu t'es perdu est la compétence","Compte combien de fois tu reviens à ta respiration — plus c'est souvent, mieux tu travailles"],
+           why:"La pleine conscience entraîne le réseau attentionnel dorsal du cerveau — le même système qui permet de maintenir le focus malgré la fatigue, la douleur ou la pression en combat. 5 minutes/jour de pratique régulière modifie structurellement ce réseau en 8 semaines."},
+        ]
+      },
+      {
+        title:"Mémoire de Travail Visuo-Spatiale",duration:12,color:"var(--green)",tag:"Fonctions cognitives",
+        exos:[
+          {icon:"♟️",name:"Jeu de Positions",dose:"5 répétitions croissantes",
+           steps:["Partenaire place 4 objets sur le sol dans une configuration précise","Tu l'observes 10 secondes puis tu quittes la pièce 30 secondes","Tu reviens et tu recrées exactement la configuration","Augmenter à 6 puis 8 objets quand tu réussis 3 fois de suite","Variante : partenaire change 2 éléments pendant ton absence — tu identifies lesquels"],
+           why:"La mémoire visuo-spatiale est la capacité à retenir et manipuler des positions dans l'espace. En combat, c'est ce qui te permet de savoir où sont tes pieds, où est l'adversaire, et où est le bord du tatami — simultanément."},
+        ]
+      },
+    ]
+  },
+  6:{
+    title:"Fatigue Mentale & Maintien de la Clarté",
+    goal:"Apprendre à rester précis quand le cerveau est épuisé. La fatigue mentale dégrade la décision avant de dégrader le corps.",
+    seances:[
+      {
+        title:"Induire et Mesurer la Fatigue Mentale",duration:15,color:"var(--red)",tag:"Fatigue cognitive",
+        exos:[
+          {icon:"🔋",name:"Épuisement Cognitif Contrôlé",dose:"10 minutes de tâche intense puis 5 minutes de test",
+           steps:["10 minutes : compte à rebours depuis 200 par 7 SANS t'arrêter, à voix haute, le plus vite possible","Si tu rates, continue depuis l'erreur — ne t'arrête pas","À la fin des 10 minutes : partenaire fait le test des cartes Go/No-Go (12 cartes)","Note le % de bonnes réponses en état de fatigue mentale","Compare au même test en début de séance (sans fatigue)"],
+           why:"La fatigue mentale se cumule au fil d'une journée ou d'un tournoi et dégrade progressivement les décisions sans qu'on s'en aperçoive. Mesurer l'écart de performance avant/après fatigue donne une cible d'entraînement concrète."},
+          {icon:"⚡",name:"Décision Rapide sous Fatigue",dose:"5 cycles",
+           steps:["Après l'épuisement cognitif : 2 minutes de respiration lente (4s/6s)","Partenaire envoie 5 signaux Go/No-Go rapides (1 par seconde)","Note les réponses — est-ce que la respiration a récupéré une partie de la précision ?","Répète le cycle : épuisement → respiration → test","Objectif : réduire l'écart de performance entre reposé et fatigué"],
+           why:"La récupération cognitive par la respiration lente est réelle et mesurable. Entraîner cette récupération rapide, c'est te donner un outil concret à utiliser entre les combats ou lors des pauses d'un randori."},
+        ]
+      },
+      {
+        title:"Décision Optimale sous Fatigue",duration:15,color:"var(--orange)",tag:"Résistance cognitive",
+        exos:[
+          {icon:"🎯",name:"Test de Précision Dégradé",dose:"4 cycles croissants",
+           steps:["Cycle 1 : résoudre 5 anagrammes simples en 3 minutes (ex: AJMU → JUMA)","Cycle 2 : même chose + partenaire distrait + musique de fond forte","Cycle 3 : idem + compte à rebours en parallèle","Cycle 4 : partenaire évalue ton niveau de précision sur les anagrammes","L'objectif n'est PAS de tout faire parfaitement — c'est de maintenir le PLUS LONGTEMPS POSSIBLE avant de se dégrader"],
+           why:"L'entraînement à la résistance cognitive repousse le seuil de dégradation. Chaque semaine que tu passes à travailler sous charge cognitive, ce seuil recule — exactement comme la résistance musculaire à l'effort."},
+          {icon:"🫁",name:"Récupération Active Cognitive",dose:"5 minutes",
+           steps:["Après l'effort cognitif intense : allonge-toi ou assis-toi confortablement","Cohérence cardiaque : inspire 5s, expire 5s pendant 5 minutes","Essaie de ne penser à RIEN — si une pensée arrive, laisse-la partir","Ressens le cerveau 'se déposer' comme de l'eau qui se stabilise","Note ton niveau de clarté avant et après (sur 10)"],
+           why:"Le réseau du mode par défaut du cerveau (DMN) se restaure pendant les phases de repos actif. Ce processus consolide les apprentissages de la séance et récupère les ressources attentionnelles dépensées."},
+        ]
+      },
+      {
+        title:"Régulation par le Mouvement",duration:12,color:"var(--green)",tag:"Régulation homéostatique",
+        exos:[
+          {icon:"🚶",name:"Marche Consciente Rapide",dose:"8 minutes",
+           steps:["Marche rapidement dans la pièce (ou sur place si petit espace) — rythme soutenu","Pendant la marche : nomme à voix basse 5 choses que tu vois, 4 que tu entends, 3 que tu sens physiquement","Continue à marcher — l'exercice est continu","Cet exercice ancre le cerveau dans le présent via les 5 sens"],
+           why:"La marche rapide augmente le BDNF (facteur de croissance neural) et le flux sanguin préfrontal en quelques minutes. Associée à l'ancrage sensoriel, elle sort le cerveau de la rumination et restaure les ressources cognitives plus vite que le repos passif."},
+          {icon:"❄️",name:"Activation par Température — 2 minutes",dose:"Optionnel si disponible",
+           steps:["30 secondes d'eau froide sur les poignets et le cou (pas besoin de douche froide)","Inspire profondément au contact du froid — résiste à l'envie de retirer la main","Expire lentement et reste dans le froid les 30 secondes complètes","Répète 3 fois","Note ton niveau d'éveil après (plus élevé qu'avant ?)"],
+           why:"L'exposition courte au froid active le système nerveux sympathique (éveil) et libère de la norépinéphrine — un neurotransmetteur qui améliore la concentration et la réaction. C'est une technique utilisée par les athlètes de haut niveau pour un réveil cognitif rapide."},
+        ]
+      },
+    ]
+  },
+  7:{
+    title:"Régulation Émotionnelle sous Pression",
+    goal:"Apprendre à agir juste quand tu ressens de la peur, de la colère, de la frustration ou du stress. L'émotion ne doit pas prendre la décision.",
+    seances:[
+      {
+        title:"Stress Aigu et Décision",duration:15,color:"var(--red)",tag:"Stress + Décision",
+        exos:[
+          {icon:"💥",name:"Induction de Stress + Go/No-Go",dose:"5 cycles",
+           steps:["Partenaire te met sous pression verbalement (ton chrono tourne, il commente, il presse) pendant 60 secondes — tu dois tenir sans réagir","STOP — immédiatement le test Go/No-Go (10 cartes rapides)","Note si le stress a dégradé tes réponses","Puis 90 secondes de respiration 4s/6s","Refais le test — compare les scores"],
+           why:"Le stress aigu libère du cortisol et de l'adrénaline qui perturbent le cortex préfrontal. Entraîner la précision décisionnelle PENDANT et JUSTE APRÈS un stress, c'est créer une immunité cognitive au stress de compétition."},
+          {icon:"🌡️",name:"Détection de l'État Interne",dose:"3 minutes après chaque cycle",
+           steps:["Immédiatement après le stress : ferme les yeux 30 secondes","Nomme précisément ce que tu ressens (anxiété, agitation, chaleur, rythme cardiaque élevé...)","Donne un chiffre à l'intensité : 1 (calme) à 10 (très agité)","Note l'évolution au fil des 5 cycles : descends-tu plus vite ?"],
+           why:"La conscience précise de son état émotionnel est la première étape de sa régulation. Sans capteurs internes précis, on ne peut pas piloter. Les athlètes élites descendent de 10 à 4 en 90 secondes — c'est une compétence qui s'entraîne."},
+        ]
+      },
+      {
+        title:"Frustration et Maintien du Focus",duration:15,color:"var(--orange)",tag:"Résilience émotionnelle",
+        exos:[
+          {icon:"😤",name:"Protocole Frustration Contrôlée",dose:"4 rounds",
+           steps:["Partenaire te donne une tâche impossible ou frustrante (ex : compter les mots dans un texte qu'il lit trop vite)","Tu vas échouer — l'objectif est de rester calme et de continuer à essayer","Après la tâche : 3 respirations lentes — nommer l'émotion ressentie à voix haute","Partenaire te donne une tâche simple réussable immédiatement après","Note : est-ce que la frustration a contaminé la tâche suivante ?"],
+           why:"La frustration peut créer un effet de 'contamination émotionnelle' — une émotion négative qui dégrade les performances sur les tâches suivantes. Entraîner la déconnexion rapide entre une émotion et la tâche suivante, c'est éviter que chaque erreur en combat ne détruise le reste du match."},
+          {icon:"🔁",name:"Reprogrammation Post-Erreur",dose:"5 répétitions",
+           steps:["Après une erreur (réponse ratée, frustration, perte de concentration) : stop de 5 secondes","Dis à voix haute : 'erreur détectée — action suivante'","Identifie mentalement la PROCHAINE action concrète (pas ce qui vient de rater, ce qui vient ENSUITE)","Reprends immédiatement avec la prochaine action","Entraîne cette transition jusqu'à ce qu'elle devienne automatique"],
+           why:"Les champions ne restent pas sur leurs erreurs — ils ont un protocole de reset rapide. Entraîner ce reset explicitement le rend automatique. En compétition, le joueur qui rebondit le plus vite après une erreur a l'avantage."},
+        ]
+      },
+      {
+        title:"Activation de l'État Optimal",duration:12,color:"var(--green)",tag:"État émotionnel positif",
+        exos:[
+          {icon:"🏆",name:"Ancrage à un Souvenir de Succès",dose:"8 minutes",
+           steps:["Ferme les yeux — rappelle un moment précis où tu t'es senti au sommet (sport, scolaire, n'importe quoi)","Revit ce moment en 1ère personne : ce que tu voyais, ce que tu entendais, ce que tu ressentais dans le corps","Reste dans ce moment 3 minutes complètes — si ton esprit part, reviens","Quand l'émotion positive est présente : serre le poing 3 fois (ancrage physique)","Ce geste devient le déclencheur de cet état"],
+           why:"L'ancrage Pavlovien lie un geste physique à un état émotionnel. Avec suffisamment de répétitions, le simple fait de serrer le poing peut rappeler l'état de confiance associé. C'est l'outil mental le plus puissant et le plus simple en préparation mentale."},
+          {icon:"💬",name:"Auto-Dialogue Constructif",dose:"5 minutes",
+           steps:["Sur ton carnet, liste 5 situations récentes où tu as bien géré quelque chose de difficile","Récris chaque situation en commençant par 'j'ai...' (pas 'j'ai eu de la chance' mais 'j'ai choisi de...')","Lis ces 5 phrases à voix haute — tu n'as pas à y croire à 100%","Objectif : entraîner le cerveau à attribuer tes succès à tes compétences, pas au hasard"],
+           why:"L'auto-efficacité (la croyance en sa propre capacité) est le prédicteur le plus fort de la performance sous pression. Elle s'entraîne en réattribuant ses succès à soi-même de façon consciente et répétée."},
+        ]
+      },
+    ]
+  },
+  8:{
+    title:"Coordination & Commandes Motrices Complexes",
+    goal:"Entraîner les sorties motrices — la précision, la rapidité et l'indépendance des mouvements — sous charge cognitive.",
+    seances:[
+      {
+        title:"Coordination Bimanuelle",duration:15,color:"var(--red)",tag:"Commande motrice",
+        exos:[
+          {icon:"🤲",name:"Rythmes Différents par Main",dose:"4 × 2 minutes",
+           steps:["Main droite : tapote ta cuisse au rythme 1-2-3-1-2-3 (valse)","Main gauche : tapote au rythme 1-2-1-2 (marche) simultanément","Les deux mains en même temps — rythmes différents","Quand tu maîtrises : inverse les rythmes (gauche fait la valse, droite la marche)","Progresser : ajouter une tâche verbale (compter de 10 en 10) pendant l'exercice"],
+           why:"L'indépendance bimanuelle développe le corps calleux et la coordination inter-hémisphérique. En judo, les deux bras font souvent des choses différentes simultanément — tsurite et hikite ont des rôles opposés lors d'une entrée."},
+          {icon:"✏️",name:"Écriture en Miroir",dose:"3 × 3 minutes",
+           steps:["Stylo dans chaque main","La main dominante écrit normalement un mot, la non-dominante l'écrit en miroir en même temps","Commence par des mots courts (3-4 lettres)","Augmenter la longueur progressivement","Variante : les deux mains écrivent des mots différents en même temps"],
+           why:"Écrire en miroir avec la main non-dominante force une réorganisation des commandes motrices et active des circuits inhabituels. Ce type de challenge cognitivo-moteur augmente la plasticité neurale et la flexibilité des schémas moteurs."},
+        ]
+      },
+      {
+        title:"Précision sous Contrainte Temporelle",duration:15,color:"var(--orange)",tag:"Vitesse + Précision",
+        exos:[
+          {icon:"🎯",name:"Tapotement Précis Chronométré",dose:"5 séries",
+           steps:["Trace 10 cercles de 2cm de diamètre sur une feuille (ou utilise des pièces de monnaie comme gabarit)","Chrono lancé : tu dois toucher chaque cercle exactement au centre avec le stylo le plus vite possible","Note le temps ET le nombre de centres manqués","Objectif : réduire le temps sans augmenter les erreurs (trade-off vitesse/précision)","Progresser : réduire la taille des cercles"],
+           why:"Le trade-off vitesse/précision (loi de Fitts) est un mécanisme fondamental du système moteur. L'entraîner explicitement permet au cerveau d'optimiser ce ratio — au lieu de choisir entre vite OU précis, tu apprends à trouver le point optimal entre les deux."},
+          {icon:"⚡",name:"Réponse Motrice sous Signal Cognitif",dose:"4 × 8 répétitions",
+           steps:["Partenaire dit un nombre entre 1 et 4","1 = tape épaule droite, 2 = épaule gauche, 3 = genou droit, 4 = genou gauche","Le plus vite possible — un mouvement net et précis","Série 2 : inverser les correspondances (1 = gauche, 2 = droite...)","Série 3 : partenaire mélange les deux systèmes aléatoirement"],
+           why:"Les exercices de mapping arbitraire (chiffre → geste) entraînent la voie cortex préfrontal → cortex moteur — le circuit de la décision consciente qui se transforme en action précise. C'est exactement le chemin Voir → Choisir → Agir."},
+        ]
+      },
+      {
+        title:"Séquences Motrices Complexes",duration:12,color:"var(--green)",tag:"Automatisation",
+        exos:[
+          {icon:"🔄",name:"Séquence de Tapotements à Mémoriser",dose:"5 séquences de complexité croissante",
+           steps:["Partenaire montre une séquence de 5 tapotements sur différentes parties du corps (épaule D, genou G, tête, épaule G, genou D)","Tu observes en silence","Tu reproduis exactement sans aide","Augmenter à 7 puis 9 éléments","Variante : tu dois reproduire la séquence à l'ENVERS"],
+           why:"L'apprentissage de séquences motrices complexes développe le striatum et le cervelet — les structures qui automatisent les gestes. Plus une séquence est intégrée, moins elle consomme de ressources cognitives conscientes, libérant de l'attention pour d'autres tâches."},
+        ]
+      },
+    ]
+  },
+  9:{
+    title:"Interoception & Régulation Homéostatique",
+    goal:"Apprendre à lire et réguler les signaux internes du corps — douleur, fatigue, chaleur, rythme cardiaque. Celui qui se connaît de l'intérieur se contrôle de l'intérieur.",
+    seances:[
+      {
+        title:"Conscience du Rythme Cardiaque",duration:15,color:"var(--red)",tag:"Interoception",
+        exos:[
+          {icon:"❤️",name:"Estimation du Rythme Cardiaque",dose:"5 répétitions — mesure l'écart",
+           steps:["Assis au repos, pose une main sur la poitrine","Essaie de compter tes battements de cœur pendant 30 secondes SANS prendre ton pouls","Note ton estimation (ex: 36 battements en 30s = 72 bpm)","Vérifie avec ton pouls ou une appli — note l'écart","Refais après 3 minutes de respirations rapides — réestimer","Entraînement : l'écart entre estimation et réalité doit diminuer chaque semaine"],
+           why:"L'interoception cardiaque est l'une des compétences cognitives les plus puissantes. Les personnes avec une interoception précise régulent mieux leurs émotions, prennent de meilleures décisions sous pression et récupèrent plus vite du stress. C'est entraînable."},
+          {icon:"🌡️",name:"Conscience de la Fatigue Interne",dose:"10 minutes",
+           steps:["Assis, scan du corps de la tête aux pieds — 3 minutes","Identifie et note sur 10 : niveau d'énergie, tension musculaire, lourdeur, chaleur","Fais 2 minutes de respirations rapides (hyperventilation légère et contrôlée)","Rescanne le corps — qu'est-ce qui a changé ?","Note les différences avec précision (zone, intensité, qualité)"],
+           why:"Distinguer les différentes nuances de la fatigue (musculaire, mentale, émotionnelle, physiologique) permet d'adapter son comportement — pousser, récupérer, ou changer de stratégie — en temps réel plutôt qu'en subissant."},
+          {icon:"🦾",name:"Kinesthésie Profonde — Sens Musculaire",dose:"4 × 5 répétitions",
+           steps:["Partenaire guide ton bras dans une position et maintient une résistance douce (il pousse légèrement, tu résistes)","Il relâche progressivement la résistance — tu dois SENTIR le moment exact où la résistance disparaît et le nommer à voix haute","Puis il reprend la résistance progressivement — tu nommes le moment exact où tu la ressens de nouveau","Objectif : détecter des variations de force de plus en plus subtiles","Progresser : partenaire fait des variations à peine perceptibles — 50g de différence"],
+           why:"Les organes tendineux de Golgi (dans les tendons) et les fuseaux neuromusculaires (dans les muscles) détectent les variations de tension avec une précision extraordinaire. Entraîner leur sensibilité consciente améliore directement le contrôle de la force appliquée — la nuance entre forcer inutilement et placer exactement la bonne force au bon moment."},
+        ]
+      },
+      {
+        title:"Tolérance à l'Inconfort et Clarté",duration:15,color:"var(--orange)",tag:"Régulation interne",
+        exos:[
+          {icon:"🧊",name:"Inconfort Contrôlé + Décision",dose:"4 cycles de 2 minutes",
+           steps:["Tiens une position inconfortable mais pas douloureuse (chaise imaginaire dos au mur, équilibre sur une jambe...)","Pendant l'inconfort, partenaire fait le test Go/No-Go (10 signaux)","Tu dois répondre précisément malgré la sensation physique déplaisante","Note si l'inconfort dégrade tes réponses","Répète 4 fois — l'inconfort devient progressivement moins distrayant"],
+           why:"L'inconfort physique capte des ressources attentionnelles. Entraîner la décision PENDANT une sensation difficile, c'est apprendre à partager l'attention entre les signaux douloureux/fatigants et les exigences cognitives. C'est ce qui se passe en fin de combat intense."},
+          {icon:"🫁",name:"Respiration de Combat — Valsalva Contrôlé",dose:"5 répétitions",
+           steps:["Inspire profondément et bloque la respiration 5 secondes (poumons pleins)","Pendant ces 5 secondes : fais un effort bref (poussée, serrement de poing fort)","Expire ensuite lentement et complètement en 6 secondes","Sens la différence de tension musculaire avant et après chaque expiration","Ne jamais forcer au point de tourner de tête — reste confortable"],
+           why:"La maîtrise du couplage respiration/effort stabilise la pression intra-abdominale et améliore la transmission de force lors des techniques de projection. C'est aussi un outil de régulation du stress aigu utilisé par les forces spéciales."},
+        ]
+      },
+      {
+        title:"Homéostasie Cognitive",duration:12,color:"var(--green)",tag:"Équilibre interne",
+        exos:[
+          {icon:"🔋",name:"Gestion de l'Énergie Mentale",dose:"10 minutes",
+           steps:["Évalue ton énergie mentale de 1 à 10 avant l'exercice","Fais 5 minutes de tâche cognitive intense (comptage à rebours par 7)","Réévalue : à combien es-tu ?","Fais 3 minutes de respiration lente + visualisation calme","Réévalue à nouveau : est-ce que tu es remonté ?","Note la courbe : départ → après effort → après récupération"],
+           why:"Tracer sa courbe d'énergie mentale permet de savoir quand se recharger et quand pousser. En tournoi, gérer son énergie mentale sur une journée complète fait souvent la différence en demi-finale ou finale."},
+          {icon:"🌙",name:"Protocole Sommeil Cognitif",dose:"Chaque soir avant de dormir — 5 minutes",
+           steps:["Note en 3 points : ce que tu as appris aujourd'hui (pas forcément du judo)","Une chose que ton cerveau a bien faite","Une chose que tu veux faire mieux demain","Puis respiration lente 4s/6s jusqu'à dormir — si des pensées arrivent, laisse-les partir","Ne pas regarder d'écran après ces 5 minutes"],
+           why:"Le sommeil consolide les apprentissages moteurs et cognitifs de la journée. La note de fin de journée dirige le traitement nocturne vers les points identifiés. Les athlètes qui journalisent avant de dormir mémorisent les patterns neuro 40% plus vite."},
+        ]
+      },
+    ]
+  },
+  10:{
+    title:"Décision Rapide — Voir → Choisir → Agir",
+    goal:"Intégrer toute la chaîne en une séquence fluide et rapide. La décision n'est plus un frein — c'est un réflexe.",
+    seances:[
+      {
+        title:"Choix Multiples en Temps Limité",duration:15,color:"var(--red)",tag:"Décision rapide",
+        exos:[
+          {icon:"⚡",name:"4 Choix — 1 Seconde Maximum",dose:"5 séries × 10 signaux",
+           steps:["4 objets devant toi : rouge, bleu, vert, jaune","Partenaire crie une des 4 couleurs — tu touches l'objet en moins de 1 seconde","Série 2 : les règles changent (rouge = gauche, bleu = droite, vert = haut, jaune = bas — tu pointes)","Série 3 : partenaire peut mentir (dire rouge en montrant bleu — tu suis ce qu'il dit ou ce qu'il montre selon la règle en cours)","Objectif : maintenir 85%+ de précision à la vitesse maximale"],
+           why:"Le choix parmi 4 options (temps de réaction de choix) entraîne directement la vitesse de traitement du cortex préfrontal. Chaque réduction de ce temps de traitement se transfère directement à la vitesse de lecture et de réponse en combat."},
+          {icon:"🎮",name:"Séquence Voir-Choisir-Agir Enchaînée",dose:"4 cycles de 2 minutes",
+           steps:["Partenaire crée une règle (ex: main levée = frappe à droite, main baissée = frappe à gauche, les deux = immobile)","Il envoie des signaux rapides en continu — toi tu réponds sans pause","La règle change sans prévenir toutes les 30 secondes — tu dois détecter le changement et t'adapter","Compte les bonnes réponses après le changement de règle — est-ce que tu adaptes vite ?"],
+           why:"La flexibilité de règle entraîne le shifting attentionnel — la capacité à changer de stratégie rapidement. Sur le tatami, aucun plan ne survit au contact — adapter sa stratégie en temps réel est une compétence décisionnelle de haut niveau."},
+        ]
+      },
+      {
+        title:"Pression Temporelle et Émotionnelle Simultanées",duration:15,color:"var(--orange)",tag:"Pression maximale",
+        exos:[
+          {icon:"💥",name:"Décision sous Double Pression",dose:"4 cycles",
+           steps:["Partenaire crée de la pression verbale ET temporelle simultanément (il commente, se moque gentiment, compte à rebours)","Pendant cette double pression : tu dois résoudre 3 anagrammes simples en moins de 2 minutes","Si tu ne finis pas dans le temps : partenaire augmente la pression","Note : est-ce que la pression a dégradé ta vitesse, ta précision, les deux, ou ni l'un ni l'autre ?","L'objectif évolue : chaque semaine, le seuil de dégradation doit reculer"],
+           why:"La pression temporelle et émotionnelle simultanée est exactement ce qui se passe lors d'un combat décisif. Entraîner la résistance à cette combinaison spécifique crée une immunité cognitive qui ne peut pas être développée par la seule pratique sportive."},
+          {icon:"🎯",name:"Décision Parfaite sur Essai Unique",dose:"10 essais",
+           steps:["Partenaire prépare un signal de son choix (il ne te dit pas lequel)","Un seul signal — tu dois répondre juste du premier coup","Pas de répétition, pas de correction — chaque essai est définitif","Partenaire varie : signal visuel, sonore, tactile ou combiné","Note le % de bonnes réponses sur les 10 essais — c'est ton score 'compétition'"],
+           why:"Les conditions de compétition ne donnent pas de deuxième chance. Entraîner la décision juste sur essai unique — sans filet — reproduit les enjeux réels et mobilise les ressources cognitives exactement comme sous pression compétitive."},
+        ]
+      },
+      {
+        title:"Intégration Complète — Circuit Cognitif",duration:12,color:"var(--green)",tag:"Intégration",
+        exos:[
+          {icon:"🌊",name:"Circuit 12 Minutes sans Pause",dose:"Enchaîné — 1 fois",
+           steps:["2 min — Scan corporel rapide + évaluation de l'état (énergie, stress, focus de 1 à 10)","2 min — Go/No-Go cartes à rythme rapide","2 min — Double tâche : comptage à rebours + tapotements alternés","2 min — Décision sous pression partenaire (4 choix rapides)","2 min — Récupération active : respiration 4s/6s + nommer 5 sensations","2 min — Réévaluation finale (énergie, stress, focus de 1 à 10 — compare au départ)"],
+           why:"Ce circuit active séquentiellement tous les systèmes entraînés depuis 10 semaines. La comparaison début/fin mesure en temps réel ta capacité à maintenir et récupérer tes ressources cognitives — c'est la carte de ta progression réelle."},
+        ]
+      },
+    ]
+  },
+  11:{
+    title:"Simulation Haute Pression",
+    goal:"Reproduire les conditions mentales et cognitives d'une compétition importante. Le cerveau doit avoir 'déjà vécu' ce niveau de pression.",
+    seances:[
+      {
+        title:"Protocole Compétition Simulée",duration:15,color:"var(--red)",tag:"Simulation",
+        exos:[
+          {icon:"🏆",name:"La Journée de Compétition Mentale",dose:"15 minutes — complet",
+           steps:["Phase 1 — 3 min : Activation (10 respirations rapides puis 3 lentes, ancrage poing serré × 3, nommer 3 intentions)","Phase 2 — 5 min : Test cognitif de niveau maximal (Go/No-Go + double tâche + décision sous pression — tout enchaîné)","Phase 3 — 2 min : Inter-combat (respiration 5s/5s, nommer l'émotion, reset)","Phase 4 — 5 min : Second round (même test cognitif — mesure si tu maintiiens le niveau)","Note les deux scores — l'écart Round 1/Round 2 est ta cible d'amélioration"],
+           why:"Simuler la structure d'une journée de compétition (activation → combat → récupération → combat) entraîne le système nerveux à gérer la répétition des efforts cognitifs avec récupération partielle. C'est la réalité d'un tournoi."},
+        ]
+      },
+      {
+        title:"Visualisation Haute Définition",duration:15,color:"var(--green)",tag:"Mental",
+        exos:[
+          {icon:"🧠",name:"Scénario Difficile — Gestion Parfaite",dose:"12 minutes",
+           steps:["Déconnexion 2 min (respiration lente)","Visualise un scénario précis que tu redoutes (en retard au score, prise désavantageuse, arbitrage défavorable)","Dans la visualisation : tu gères parfaitement — pas avec de la chance, avec des actions concrètes","Ressens les émotions négatives ET ta réponse constructive — les deux en même temps","Répète 3 fois la même situation avec 3 réponses différentes (toutes efficaces)"],
+           why:"La visualisation de gestion des situations difficiles active les mêmes circuits que l'expérience réelle. Le cerveau 'désamorce' progressivement la menace perçue et crée des scripts de réponse automatiques — disponibles sous pression."},
+          {icon:"🎯",name:"Ancrage Final — Ta Phrase en 3 Mots",dose:"3 minutes",
+           steps:["Ta phrase d'ancrage doit tenir en 3 mots maximum","Elle doit décrire un état, pas un résultat (pas 'je gagne' mais 'je suis précis')","Dis-la 10 fois à voix haute en serrant le poing","Si elle crée une sensation physique (chaleur, énergie, clarté) — c'est la bonne","Sinon, change-la jusqu'à trouver celle qui marche pour toi"],
+           why:"Un ancrage efficace déclenche en 2 secondes l'état cognitif et émotionnel optimal. Avec 12 semaines de construction derrière lui, le poing serré active maintenant un réseau neural associé à la performance — un déclencheur propre à toi."},
+        ]
+      },
+      {
+        title:"Récupération Cognitive Profonde",duration:12,color:"var(--orange)",tag:"Récupération",
+        exos:[
+          {icon:"🌊",name:"Relaxation Totale — Corps et Cerveau",dose:"10 minutes",
+           steps:["Allongé — scan corporel lent du bas vers le haut (2 minutes)","Relâche consciemment chaque groupe musculaire — commence par les pieds","Cohérence cardiaque 5s/5s pendant 5 minutes — essaie de ne penser à rien","Visualisation libre : un endroit calme, sans objectif, sans judo","Laisse le cerveau se 'déposer' complètement"],
+           why:"Le système nerveux autonome a besoin de plages de récupération profonde pour maintenir la performance sur la durée. Après 11 semaines d'entraînement cognitif intense, cette séance donne au cerveau le temps de consolider, intégrer et restaurer."},
+          {icon:"📝",name:"Lettre à Soi — Semaine 11",dose:"2 minutes d'écriture",
+           steps:["Écris 5 lignes en commençant par : 'Depuis 11 semaines, j'ai appris que mon cerveau...'","Note la compétence que tu as le plus développée","Note ce que tu fais maintenant différemment sous pression","Garde cette lettre — tu la reliras avant ta prochaine compétition"],
+           why:"L'écriture de soi renforce l'identité de performance et fixe les acquis dans la mémoire à long terme. Elle sert aussi de ressource psychologique en compétition — un rappel concret de qui tu es devenu."},
+        ]
+      },
+    ]
+  },
+  12:{
+    title:"Peak Cognitif — Tout Est Là",
+    goal:"Tu n'as plus rien à apprendre cette semaine. Tout ce qui est nécessaire est câblé. Ces séances confirment et ancrent.",
+    seances:[
+      {
+        title:"Circuit d'Activation Optimal",duration:12,color:"var(--red)",tag:"Peak",
+        exos:[
+          {icon:"⚡",name:"Éveil Neuro en 12 Minutes",dose:"Enchaîné — qualité maximale",
+           steps:["2 min — Respirations activantes (inspire vite, expire lentement) × 10 cycles","2 min — Go/No-Go cartes — ton meilleur niveau de précision","2 min — Double tâche moteur + cognitif — coordination maximale","2 min — Décision rapide 4 choix — aussi vite et précis que possible","2 min — Ancrage : phrase × 5, poing serré, scan émotionnel rapide","2 min — Respiration de stabilisation (4s/6s) — tu es prêt"],
+           why:"Ce circuit active dans l'ordre : l'éveil du SNC, la décision visuelle, la coordination, la vitesse décisionnelle, l'ancrage émotionnel, et la stabilisation. C'est la synthèse de 12 semaines de travail en 12 minutes."},
+        ]
+      },
+      {
+        title:"Visualisation Ultime",duration:10,color:"var(--green)",tag:"Mental",
+        exos:[
+          {icon:"🏆",name:"Voir Qui Tu Es Devenu",dose:"10 minutes",
+           steps:["Déconnexion 2 min","Visualise-toi dans une situation de haute pression (combat important, décision difficile)","Compare mentalement la façon dont tu réagissais en semaine 1 et maintenant","Ressens la différence dans le corps : calme sous pression, décision rapide, reset après erreur","Ancre cet état : ton geste, ta phrase, ta respiration","C'est qui tu es maintenant — grave-le"],
+           why:"La visualisation d'identité (se voir comme une version évoluée de soi-même) est l'un des ancrages les plus puissants. Elle transforme le travail des 12 semaines en une image de soi stable et disponible sous pression maximale."},
+        ]
+      },
+      {
+        title:"Mesure Finale & Ancrage Durable",duration:10,color:"var(--orange)",tag:"Bilan",
+        exos:[
+          {icon:"📊",name:"Mesures Finales — Comparer à la Semaine 1",dose:"8 minutes",
+           steps:["Refais le test de réaction aux cartes Go/No-Go (3 séries × 10) — note le score","Refais le comptage à rebours 2 minutes — jusqu'où arrives-tu ?","Refais l'estimation du rythme cardiaque — quel est l'écart avec la réalité ?","Compare chaque score à la semaine 1 — note les progressions en chiffres","Ces chiffres sont la preuve de ton travail"],
+           why:"Mesurer les mêmes indicateurs qu'en semaine 1 crée une preuve concrète et chiffrée de la progression. La progression n'est plus une impression — c'est une donnée."},
+          {icon:"🎯",name:"Ancrage Durable — Le Contrat avec Toi-Même",dose:"2 minutes d'écriture",
+           steps:["Écris sur ton carnet : 'Les 3 compétences cognitives que j'ai les plus développées en 12 semaines'","Écris : 'Ce que je fais maintenant automatiquement sous pression que je ne faisais pas avant'","Signe et date ce que tu as écrit","Relis-le avant chaque compétition importante — c'est ton point de départ, pas un plafond"],
+           why:"L'ancrage conscient des acquis empêche la régression et constitue une base solide pour continuer à progresser. Les 12 semaines sont terminées — le système neuro que tu as construit, lui, reste."},
+        ]
+      },
+    ]
+  },
+};
+
+// ═══════════════════════════════════════════════
+// CONFIG GOOGLE SHEETS
+// ═══════════════════════════════════════════════
+// Colle ici l'URL de déploiement de ton Apps Script :
+const SHEETS_URL = 'COLLE_TON_URL_ICI';
+
+// ═══════════════════════════════════════════════
+// STATE & STORAGE
+// ═══════════════════════════════════════════════
+const KEY=(w,s)=>`tjNeuro_w${w}_s${s}`;
+const FKEY=(w,q)=>`tjNeuro_fb_w${w}_q${q}`;
+let currentWeek=parseInt(localStorage.getItem('tjNeuro_currentWeek')||'1');
+
+function saveJudokaName(v){localStorage.setItem('tjNeuro_judoka',v)}
+function getJudokaName(){return localStorage.getItem('tjNeuro_judoka')||'Anonyme'}
+
+function isSeanceDone(w,s){return localStorage.getItem(KEY(w,s))==='1'}
+function setSeanceDone(w,s,v){
+  localStorage.setItem(KEY(w,s),v?'1':'0');
+  localStorage.setItem('tjNeuro_currentWeek',currentWeek);
+  updateGlobalProgress();
+  updateDashboard();
+  updateWeekProgress();
+}
+function getFeedback(w,q){return localStorage.getItem(FKEY(w,q))||''}
+function setFeedback(w,q,v){localStorage.setItem(FKEY(w,q),v)}
+
+function totalSeances(){
+  return Object.values(PROGRAM).reduce((a,w)=>a+w.seances.length,0);
+}
+function doneSeances(){
+  let n=0;
+  for(let w=1;w<=12;w++){
+    const week=PROGRAM[w];
+    week.seances.forEach((_,i)=>{if(isSeanceDone(w,i))n++});
+  }
+  return n;
+}
+function weekDone(w){
+  const week=PROGRAM[w];
+  return week.seances.every((_,i)=>isSeanceDone(w,i));
+}
+function weekProgress(w){
+  const week=PROGRAM[w];
+  const done=week.seances.filter((_,i)=>isSeanceDone(w,i)).length;
+  return {done,total:week.seances.length,pct:Math.round(done/week.seances.length*100)};
+}
+
+function getPhase(w){
+  return PHASES.find(p=>p.weeks.includes(w));
+}
+
+// ═══════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ═══════════════════════════════════════════════
+function updateGlobalProgress(){
+  const done=doneSeances(),total=totalSeances();
+  const pct=Math.round(done/total*100);
+  document.getElementById('global-fill').style.width=pct+'%';
+  document.getElementById('global-pct').textContent=pct+'%';
+}
+
+function updateDashboard(){
+  const grid=document.getElementById('dash-grid');
+  grid.innerHTML='';
+  for(let w=1;w<=12;w++){
+    const done=weekDone(w);
+    const isCur=w===currentWeek;
+    const el=document.createElement('div');
+    el.className='dash-week'+(isCur?' current-dash':'')+(done?' done-dash':'');
+    el.innerHTML=done?`<span class="dash-check">✓</span><span>${w}</span>`:`<span>${w}</span>`;
+    el.title=`Semaine ${w}: ${PROGRAM[w].title}`;
+    el.onclick=()=>goToWeek(w);
+    grid.appendChild(el);
+  }
+}
+
+function updateWeekProgress(){
+  const {done,total,pct}=weekProgress(currentWeek);
+  const fill=document.getElementById('wpfill');
+  const label=document.getElementById('wplabel');
+  if(fill)fill.style.width=pct+'%';
+  if(label)label.textContent=done+'/'+total;
+}
+
+function renderPhaseBar(){
+  const bar=document.getElementById('phase-bar');
+  bar.innerHTML='';
+  PHASES.forEach((phase,pi)=>{
+    const div=document.createElement('div');
+    const active=phase.weeks.includes(currentWeek);
+    div.className='phase-btn'+(active?' active':'');
+    div.innerHTML=`<div class="phase-name">${phase.name}</div><div class="phase-weeks">${
+      phase.weeks.map(w=>{
+        const done=weekDone(w);
+        const isCur=w===currentWeek;
+        return `<div class="week-dot${isCur?' current':''}${done?' done':''}" onclick="goToWeek(${w})">${w}</div>`;
+      }).join('')
+    }</div>`;
+    div.onclick=(e)=>{if(e.target===div)goToWeek(phase.weeks[0])};
+    bar.appendChild(div);
+  });
+}
+
+function renderWeek(){
+  const w=currentWeek;
+  const week=PROGRAM[w];
+  const phase=getPhase(w);
+  const {done,total,pct}=weekProgress(w);
+  const content=document.getElementById('week-content');
+
+  let html=`
+  <div class="week-header">
+    <div class="week-nav">
+      <button class="week-nav-btn" onclick="goToWeek(${w-1})" ${w<=1?'disabled':''}>← Sem. ${w-1}</button>
+      <div class="week-badge">
+        <div class="week-tag">SEMAINE ${w}</div>
+        <div class="phase-tag">${phase.name}</div>
+      </div>
+      <button class="week-nav-btn" onclick="goToWeek(${w+1})" ${w>=12?'disabled':''}>Sem. ${w+1} →</button>
+    </div>
+    <div class="week-title">${week.title}</div>
+    <div class="week-goal">${week.goal}</div>
+    <div class="week-progress-row">
+      <span style="font-size:11px;color:var(--gray);font-weight:700;white-space:nowrap">SÉANCES</span>
+      <div class="week-progress-bar"><div class="week-progress-fill" id="wpfill" style="width:${pct}%"></div></div>
+      <span class="week-progress-label" id="wplabel">${done}/${total}</span>
+    </div>
+  </div>`;
+
+  // Séances
+  week.seances.forEach((seance,si)=>{
+    const done=isSeanceDone(w,si);
+    const seanceColors={0:'var(--red)',1:'var(--orange)',2:'var(--green)',3:'var(--orange)'};
+    const color=seance.color||seanceColors[si]||'var(--red)';
+    const totalMin=seance.duration;
+
+    html+=`<div class="seance-card" id="seance-${si}">
+      <div class="seance-header" onclick="toggleSeance(${si})">
+        <div class="seance-num" style="background:${color}">${si+1}</div>
+        <div class="seance-info">
+          <div class="seance-title">Séance ${si+1} — ${seance.title}</div>
+          <div class="seance-meta">
+            <span class="seance-time">⏱ ${totalMin} min</span>
+            <span class="seance-tag-pill" style="background:${color}22;color:${color}">${seance.tag}</span>
+          </div>
+        </div>
+        <div class="seance-check" onclick="event.stopPropagation()">
+          <input type="checkbox" ${done?'checked':''} onchange="toggleDone(${w},${si},this.checked)" title="Marquer comme terminée"/>
+        </div>
+        <div class="seance-chevron">▼</div>
+      </div>
+      <div class="seance-body">
+        <div class="exo-list">${seance.exos.map(exo=>renderExo(exo,color)).join('')}</div>
+      </div>
+    </div>`;
+  });
+
+  // Feedback section
+  html+=`
+  <div class="feedback-section">
+    <div class="feedback-title">✍️ Retour Athlète — Semaine ${w}</div>
+    <div class="feedback-subtitle">
+      À la fin de ta dernière séance de la semaine, réponds à ces 3 questions dans ta
+      <strong style="color:var(--orange)">feuille de retour athlète de la semaine</strong> et remets-la à ton coach.
+    </div>
+    <div class="feedback-q">💡 1 — Qu'est-ce que j'ai ressenti de différent sur le tatami cette semaine ?</div>
+    <div class="feedback-q">📊 2 — Quelle séance ou quel exercice a eu le plus d'effet sur moi ?</div>
+    <div class="feedback-q">🎯 3 — Mon intention neuro pour la semaine prochaine :</div>
+  </div>`;
+
+  content.innerHTML=html;
+
+  // Open first incomplete seance automatically
+  const firstIncomplete=week.seances.findIndex((_,i)=>!isSeanceDone(w,i));
+  const toOpen=firstIncomplete>=0?firstIncomplete:0;
+  openSeance(toOpen);
+}
+
+function renderExo(exo,accentColor){
+  return `<div class="exo" style="border-left-color:${accentColor}">
+    <div class="exo-header">
+      <div class="exo-icon">${exo.icon}</div>
+      <div>
+        <div class="exo-name">${exo.name}</div>
+        <div class="exo-dose">${exo.dose}</div>
+      </div>
+    </div>
+    <ul class="exo-steps">
+      ${exo.steps.map((s,i)=>`<li>
+        <span class="exo-step-num" style="background:${accentColor}">${i+1}</span>
+        <span>${s}</span>
+      </li>`).join('')}
+    </ul>
+    <div class="exo-why"><strong>Ce que ça développe :</strong> ${exo.why}</div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════════
+function toggleSeance(si){
+  const card=document.getElementById('seance-'+si);
+  const isOpen=card.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.seance-card').forEach(c=>c.classList.remove('open'));
+  if(!isOpen)card.classList.add('open');
+}
+
+function openSeance(si){
+  const card=document.getElementById('seance-'+si);
+  if(card)card.classList.add('open');
+}
+
+function toggleDone(w,si,checked){
+  setSeanceDone(w,si,checked);
+  updateWeekProgress();
+  updateDashboard();
+  renderPhaseBar();
+  // Check if all done → suggest next week
+  if(weekDone(w)&&w<12){
+    setTimeout(()=>{
+      if(confirm(`Super ! Semaine ${w} complétée ✓\nPasser à la Semaine ${w+1} ?`)){
+        goToWeek(w+1);
+      }
+    },300);
+  }
+}
+
+function goToWeek(w){
+  if(w<1||w>12)return;
+  currentWeek=w;
+  localStorage.setItem('tjNeuro_currentWeek',w);
+  renderPhaseBar();
+  renderWeek();
+  updateWeekProgress();
+  updateGlobalProgress();
+  updateDashboard();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+
+async function sendToSheets(w,q1,q2,q3){
+  if(!SHEETS_URL||SHEETS_URL==='COLLE_TON_URL_ICI')return;
+
+  const dot=document.getElementById('sheets-dot');
+  dot.className='sheets-dot loading';
+
+  // Calculer la progression
+  const total=totalSeances();
+  const done=doneSeances();
+  const pctGlobal=Math.round(done/total*100);
+  const wp=weekProgress(w);
+  const phase=getPhase(w);
+
+  // Progression par semaine
+  const weekProg={};
+  for(let ww=1;ww<=12;ww++){
+    weekProg[ww]=weekProgress(ww).pct;
+  }
+
+  const payload={
+    judoka:getJudokaName(),
+    semaine:w,
+    phase:phase?phase.name:'',
+    seancesDone:wp.done,
+    seancesTotal:wp.total,
+    pctSemaine:wp.pct,
+    pctGlobal,
+    q1,q2,q3,
+    weekProgress:weekProg
+  };
+
+  try{
+    await fetch(SHEETS_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    dot.className='sheets-dot ok';
+    setTimeout(()=>{dot.className='sheets-dot'},4000);
+  }catch(err){
+    dot.className='sheets-dot err';
+    setTimeout(()=>{dot.className='sheets-dot'},4000);
+    console.error('Sheets error:',err);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+function init(){
+  // Restore judoka name
+  const savedName=localStorage.getItem('tjNeuro_judoka');
+  if(savedName){
+    const input=document.getElementById('judoka-name');
+    if(input)input.value=savedName;
+  }
+  updateGlobalProgress();
+  updateDashboard();
+  renderPhaseBar();
+  renderWeek();
+}
+
+init();
+</script>
+</body>
+</html>
