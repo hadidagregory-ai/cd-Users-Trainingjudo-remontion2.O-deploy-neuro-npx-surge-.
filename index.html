@@ -164,7 +164,126 @@ body{font-family:var(--font);background:var(--bg);color:var(--white);min-height:
   .phase-bar{grid-template-columns:repeat(2,1fr)}
   .dash-grid{grid-template-columns:repeat(6,1fr)}
   .week-title{font-size:19px}
+  .name-input{width:90px}
+  .header-inner{gap:8px}
 }
+
+/* ── NAV TOGGLE ──────────────────────────────────────── */
+.stabs{display:flex;gap:5px;flex-shrink:0}
+.stab{padding:6px 11px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--gray);font-size:11px;font-weight:800;cursor:pointer;letter-spacing:.05em;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.stab.on{background:var(--red);color:#0F0F0F;border-color:transparent}
+
+/* ── TOOLS SECTION ───────────────────────────────────── */
+#tools-wrap{display:none;max-width:500px;margin:0 auto;padding:16px 16px 80px}
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:20px}
+@media(max-width:480px){.tool-grid{grid-template-columns:repeat(2,1fr)}}
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.tool-card:active{opacity:.75}
+.tc-icon{font-size:28px;line-height:1;margin-bottom:6px}
+.tc-name{font-size:11px;font-weight:800;color:var(--white)}
+.tc-tag{font-size:10px;color:var(--orange);font-weight:700;margin-top:2px}
+
+/* ── TOOL VIEW ───────────────────────────────────────── */
+.tv{display:none;flex-direction:column;align-items:center;padding:0 0 60px;width:100%}
+.tv.show{display:flex}
+.tv-top{display:flex;align-items:center;gap:10px;width:100%;margin-bottom:16px}
+.tv-back{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 13px;font-size:13px;font-weight:700;color:var(--gray);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;flex-shrink:0}
+.tv-h{flex:1}
+.tv-title{font-size:18px;font-weight:900;color:var(--white);line-height:1.1}
+.tv-sub{font-size:11px;color:var(--gray);margin-top:1px}
+
+/* ── BIG BUTTONS ─────────────────────────────────────── */
+.bb{width:100%;padding:18px;border-radius:14px;border:none;font-size:16px;font-weight:900;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;letter-spacing:.03em;margin-top:8px}
+.bb:active{opacity:.82}
+.bb.r{background:var(--red);color:#0F0F0F}
+.bb.g{background:var(--green);color:#0F0F0F}
+.bb.o{background:var(--orange);color:#0F0F0F}
+.bb.d{background:var(--dim);color:var(--white)}
+
+/* ── CONFIG BLOCK ────────────────────────────────────── */
+.cfg-block{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.cfg-row{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--border)}
+.cfg-row:last-child{border-bottom:none}
+.cfg-lbl{font-size:13px;font-weight:700;color:var(--white)}
+.cfg-ctrl{display:flex;align-items:center;gap:8px}
+.cfg-n{font-size:16px;font-weight:900;color:var(--orange);min-width:34px;text-align:center}
+.cfg-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--white);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+
+/* ── STATS ROW ───────────────────────────────────────── */
+.stats-row{display:flex;gap:8px;width:100%;margin-bottom:12px}
+.sp{flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:9px 6px;text-align:center}
+.sp-n{font-size:20px;font-weight:900;color:var(--orange);line-height:1}
+.sp-n.r{color:var(--red)}.sp-n.g{color:var(--green)}
+.sp-l{font-size:10px;color:var(--gray);margin-top:2px}
+
+/* ── PVT ─────────────────────────────────────────────── */
+.pvt-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:280px;width:100%}
+.pvt-dot{width:160px;height:160px;border-radius:50%;background:var(--dim);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--gray);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;transition:background .06s}
+.pvt-dot.go{background:var(--red);color:#0F0F0F;font-size:44px}
+.pvt-dot.early{background:var(--orange)}
+.pvt-msg{font-size:15px;font-weight:700;color:var(--gray);text-align:center}
+.pvt-rt{font-size:52px;font-weight:900;color:var(--green);line-height:1;text-align:center}
+.fatigue-badge{border-radius:14px;padding:16px;text-align:center;width:100%;margin-bottom:12px}
+.fb-l{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px}
+.fb-v{font-size:40px;font-weight:900;line-height:1}
+.fb-d{font-size:12px;margin-top:5px;opacity:.85}
+
+/* ── COLOR REACTION ──────────────────────────────────── */
+.cr-prog{font-size:12px;font-weight:700;color:var(--gray);letter-spacing:.1em;margin-bottom:10px}
+.cr-stim{width:160px;height:160px;border-radius:50%;margin:10px auto;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#0F0F0F;background:var(--dim);transition:background .1s}
+.cr-tgts{display:flex;gap:12px;margin-top:auto;padding:10px 0}
+.cr-t{width:68px;height:68px;border-radius:50%;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;border:4px solid transparent;transition:.08s;flex-shrink:0}
+.cr-t:active{transform:scale(.85)}
+.cr-t.flash{border-color:white;transform:scale(1.1)}
+
+/* ── CARDS ───────────────────────────────────────────── */
+.card-rule-bar{font-size:13px;font-weight:700;background:var(--card);border-radius:10px;padding:9px 14px;margin-bottom:10px;color:var(--gray);text-align:center;width:100%;border:1px solid var(--border)}
+.card-face{width:100%;max-width:360px;border-radius:18px;min-height:240px;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:900;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;transition:.08s}
+.card-face:active{transform:scale(.96)}
+
+/* ── CANVAS TOOLS ────────────────────────────────────── */
+canvas{border-radius:12px;background:#111;display:block;touch-action:none;width:100%;height:auto}
+
+/* ── COORDINATION ────────────────────────────────────── */
+.coord-instr{font-size:14px;color:var(--white);font-weight:700;text-align:center;background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:12px;width:100%;border:1px solid var(--border)}
+.coord-body{position:relative;width:180px;height:240px;margin:0 auto 14px;flex-shrink:0}
+.bp{position:absolute;border-radius:8px;padding:5px 9px;font-size:10px;font-weight:800;text-align:center;background:var(--dim);color:var(--gray);transition:all .2s;border:2px solid transparent}
+.bp.on{background:var(--red);color:#0F0F0F;border-color:transparent;transform:scale(1.15)}
+.coord-timer{font-size:70px;font-weight:900;color:var(--white);text-align:center;line-height:1}
+.coord-reps{font-size:15px;color:var(--gray);text-align:center;margin-top:4px}
+
+/* ── RESULTS ─────────────────────────────────────────── */
+.res-block{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.rr{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border)}
+.rr:last-child{border-bottom:none}
+.rr-l{font-size:13px;color:var(--gray)}.rr-v{font-size:14px;font-weight:900;color:var(--orange)}
+
+/* ── TOOL HINT IN PROGRAMME ──────────────────────────── */
+.tool-hint{display:flex;align-items:center;gap:10px;background:rgba(255,189,89,0.08);border:1px solid rgba(255,189,89,0.25);border-radius:10px;padding:10px 14px;margin-top:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:.15s}
+.tool-hint:active{opacity:.75}
+.tool-hint-icon{font-size:22px;flex-shrink:0}
+.tool-hint-txt{flex:1;font-size:12px;color:var(--gray);line-height:1.4}
+.tool-hint-txt strong{color:var(--orange);display:block;font-size:13px;margin-bottom:1px}
+.tool-hint-arrow{font-size:12px;color:var(--orange);font-weight:900;flex-shrink:0}
+
+/* ── RYTHME MAIN/PIED ────────────────────────────────── */
+.ry-limb{position:absolute;border-radius:10px;padding:6px 10px;font-size:11px;font-weight:900;background:var(--dim);color:var(--gray);text-align:center;transition:all .1s;border:2px solid transparent;user-select:none;letter-spacing:.03em}
+.ry-limb.go{background:var(--red);color:#0F0F0F;transform:scale(1.22);box-shadow:0 0 18px rgba(255,87,87,0.5)}
+.ry-count-big{font-size:78px;font-weight:900;color:var(--orange);line-height:1;text-align:center;margin:6px 0 2px}
+.ry-say{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--gray);text-transform:uppercase;text-align:center;margin-bottom:12px}
+
+/* ── GNG SOLO STIM ───────────────────────────────────── */
+.gng-stim{width:140px;height:140px;border-radius:50%;margin:8px auto;display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:900;color:#0F0F0F;background:var(--dim);transition:background .08s,opacity .1s;user-select:none}
+.gng-stim.audio-only{font-size:32px;background:var(--dim)!important;color:var(--gray)}
+.tap-zone-big{width:100%;padding:28px;border-radius:18px;background:var(--card2);border:2px dashed var(--border);font-size:18px;font-weight:900;color:var(--gray);text-align:center;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;margin:10px 0}
+.tap-zone-big:active{background:var(--dim)}
+
+/* ── DIFFICULTY LEVELS ───────────────────────────────── */
+.exo-levels{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.lvl{font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;border:1px solid;letter-spacing:.04em}
+.lvl-1{border-color:var(--green);color:var(--green)}
+.lvl-2{border-color:var(--orange);color:var(--orange)}
+.lvl-3{border-color:var(--red);color:var(--red)}
 </style>
 </head>
 <body>
@@ -185,10 +304,14 @@ body{font-family:var(--font);background:var(--bg);color:var(--white);min-height:
         oninput="saveJudokaName(this.value)" autocomplete="off"/>
       <div class="sheets-dot" id="sheets-dot" title="Statut Google Sheets"></div>
     </div>
+    <div class="stabs">
+      <button class="stab on" id="stab-prog" onclick="switchTab('prog')">PROG</button>
+      <button class="stab" id="stab-tools" onclick="switchTab('tools')">OUTILS</button>
+    </div>
   </div>
 </header>
 
-<div class="container">
+<div class="container" id="main-section">
   <!-- Dashboard progression -->
   <div class="dashboard">
     <div class="dashboard-title">📊 Mes 12 semaines</div>
@@ -200,6 +323,460 @@ body{font-family:var(--font);background:var(--bg);color:var(--white);min-height:
 
   <!-- Week content -->
   <div id="week-content"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     OUTILS INTERACTIFS
+══════════════════════════════════════════════ -->
+<div id="tools-wrap" style="display:none">
+
+  <!-- Grille des outils -->
+  <div id="tool-grid-wrap">
+    <div style="font-size:12px;font-weight:700;letter-spacing:.15em;color:var(--gray);text-align:center;margin-bottom:14px;text-transform:uppercase">Sélectionne un outil</div>
+    <div class="tool-grid">
+      <div class="tool-card" onclick="openTool('tv-pvt')">
+        <div class="tc-icon">⚡</div>
+        <div class="tc-name">PVT</div>
+        <div class="tc-tag">Fatigue mentale</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tv-cr')">
+        <div class="tc-icon">🎯</div>
+        <div class="tc-name">Réaction Couleur</div>
+        <div class="tc-tag">Décision rapide</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tv-card')">
+        <div class="tc-icon">🃏</div>
+        <div class="tc-name">Cartes Go/No-Go</div>
+        <div class="tc-tag">Inhibition</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tv-mot')">
+        <div class="tc-icon">🔵</div>
+        <div class="tc-name">Tracking Balle</div>
+        <div class="tc-tag">Attention</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tv-seq')">
+        <div class="tc-icon">🔢</div>
+        <div class="tc-name">Séquences</div>
+        <div class="tc-tag">Mémoire</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tv-eye')">
+        <div class="tc-icon">👁</div>
+        <div class="tc-name">Eye Training</div>
+        <div class="tc-tag">Vision FPS</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tv-rythme')">
+        <div class="tc-icon">🥁</div>
+        <div class="tc-name">Rythme Main/Pied</div>
+        <div class="tc-tag">Coordination + Décompte</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tv-gonogo')">
+        <div class="tc-icon">🚦</div>
+        <div class="tc-name">Go/No-Go Solo</div>
+        <div class="tc-tag">Réaction sans partenaire</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tv-multi')">
+        <div class="tc-icon">🎮</div>
+        <div class="tc-name">Multi-Sensoriel</div>
+        <div class="tc-tag">Son + Vision + Choix</div>
+      </div>
+      <div class="tool-card" onclick="openTool('tv-react-solo')">
+        <div class="tc-icon">🎱</div>
+        <div class="tc-name">Réaction Solo</div>
+        <div class="tc-tag">Remplace le stylo/partenaire</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PVT ─────────────────────────────────────────────── -->
+  <div class="tv" id="tv-pvt">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Test PVT</div>
+        <div class="tv-sub">Mesure ta fatigue mentale</div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="sp"><div class="sp-n" id="pvt-avg">—</div><div class="sp-l">Moy. ms</div></div>
+      <div class="sp"><div class="sp-n g" id="pvt-best">—</div><div class="sp-l">Meilleur</div></div>
+      <div class="sp"><div class="sp-n r" id="pvt-worst">—</div><div class="sp-l">Pire</div></div>
+    </div>
+    <div class="pvt-area">
+      <div class="pvt-dot" id="pvt-dot" onclick="pvtTap()">APPUIE</div>
+      <div class="pvt-msg" id="pvt-msg">Appuie sur Démarrer puis sur le cercle dès qu'il devient rouge</div>
+      <div class="pvt-rt" id="pvt-rt"></div>
+    </div>
+    <button class="bb r" id="pvt-btn" onclick="pvtStart()">DÉMARRER — 2 MIN</button>
+  </div>
+
+  <!-- ── RÉACTION COULEUR ───────────────────────────────── -->
+  <div class="tv" id="tv-cr">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Réaction Couleur</div>
+        <div class="tv-sub">Touche la bonne cible</div>
+      </div>
+    </div>
+    <div class="cfg-block" id="cr-cfg">
+      <div class="cfg-row">
+        <span class="cfg-lbl">Délai entre stimuli (s)</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="crCfg('isi',-1)">−</button>
+          <span class="cfg-n" id="cr-isi">2</span>
+          <button class="cfg-btn" onclick="crCfg('isi',1)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Rounds par set</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="crCfg('rounds',-1)">−</button>
+          <span class="cfg-n" id="cr-rounds">10</span>
+          <button class="cfg-btn" onclick="crCfg('rounds',1)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Nombre de sets</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="crCfg('sets',-1)">−</button>
+          <span class="cfg-n" id="cr-sets">3</span>
+          <button class="cfg-btn" onclick="crCfg('sets',1)">+</button>
+        </div>
+      </div>
+    </div>
+    <div id="cr-game" style="display:none;flex-direction:column;align-items:center;width:100%">
+      <div class="cr-prog" id="cr-prog">Set 1/3 — Round 1/10</div>
+      <div class="cr-stim" id="cr-stim"></div>
+      <div id="cr-fb" style="font-size:24px;font-weight:900;min-height:32px;text-align:center"></div>
+      <div class="cr-tgts" id="cr-tgts"></div>
+    </div>
+    <div id="cr-result" style="display:none;width:100%"></div>
+    <button class="bb r" id="cr-btn" onclick="crStart()">DÉMARRER</button>
+  </div>
+
+  <!-- ── CARTES GO/NO-GO ────────────────────────────────── -->
+  <div class="tv" id="tv-card">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Cartes Go/No-Go</div>
+        <div class="tv-sub">Rouge = tape vite / Noir = stop</div>
+      </div>
+    </div>
+    <div class="card-rule-bar">🔴 Rouge → TAPE &nbsp;|&nbsp; ⚫ Noir → NE TAPE PAS</div>
+    <div class="stats-row">
+      <div class="sp"><div class="sp-n g" id="card-ok">0</div><div class="sp-l">Correct</div></div>
+      <div class="sp"><div class="sp-n r" id="card-err">0</div><div class="sp-l">Erreur</div></div>
+      <div class="sp"><div class="sp-n" id="card-avg">—</div><div class="sp-l">Moy. ms</div></div>
+    </div>
+    <div class="card-face" id="card-face" onclick="cardTap()" style="background:var(--card);border:2px solid var(--border)">🃏</div>
+    <button class="bb r" id="card-btn" onclick="cardStart()">DÉMARRER — 20 CARTES</button>
+  </div>
+
+  <!-- ── BALL TRACKING ──────────────────────────────────── -->
+  <div class="tv" id="tv-mot">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Tracking Balle</div>
+        <div class="tv-sub">Suis les balles cibles</div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="sp"><div class="sp-n" id="mot-score">0</div><div class="sp-l">Score</div></div>
+      <div class="sp"><div class="sp-n" id="mot-level">1</div><div class="sp-l">Niveau</div></div>
+      <div class="sp"><div class="sp-n" id="mot-rounds">0</div><div class="sp-l">Rounds</div></div>
+    </div>
+    <canvas id="mot-canvas" width="480" height="340"></canvas>
+    <div id="mot-msg" style="font-size:14px;font-weight:700;color:var(--gray);text-align:center;margin-top:10px;padding:0 4px">
+      Les balles jaunes sont les cibles. Mémorise-les — puis clique dessus après le mouvement.
+    </div>
+    <button class="bb r" id="mot-btn" onclick="motStart()">DÉMARRER</button>
+  </div>
+
+  <!-- ── SÉQUENCES VISUELLES ────────────────────────────── -->
+  <div class="tv" id="tv-seq">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Séquences Visuelles</div>
+        <div class="tv-sub">Mémorise et reproduis</div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="sp"><div class="sp-n" id="seq-score">0</div><div class="sp-l">Score</div></div>
+      <div class="sp"><div class="sp-n" id="seq-level">1</div><div class="sp-l">Niveau</div></div>
+      <div class="sp"><div class="sp-n" id="seq-streak">0</div><div class="sp-l">Série</div></div>
+    </div>
+    <div id="seq-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:320px;margin:0 auto 14px"></div>
+    <div id="seq-msg" style="font-size:14px;font-weight:700;color:var(--gray);text-align:center;margin-bottom:10px">Observe la séquence, puis reproduis-la dans l'ordre</div>
+    <button class="bb r" id="seq-btn" onclick="seqStart()">DÉMARRER</button>
+  </div>
+
+  <!-- ── EYE TRAINING FPS ───────────────────────────────── -->
+  <div class="tv" id="tv-eye">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Eye Training FPS</div>
+        <div class="tv-sub">Entraîne tes yeux comme un pro</div>
+      </div>
+    </div>
+    <div class="cfg-block" id="eye-cfg">
+      <div class="cfg-row">
+        <span class="cfg-lbl">Mode</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="eyeModeNav(-1)">◀</button>
+          <span class="cfg-n" id="eye-mode-n" style="min-width:64px;font-size:11px">Poursuite</span>
+          <button class="cfg-btn" onclick="eyeModeNav(1)">▶</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Durée (s)</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="eyeCfg('dur',-10)">−</button>
+          <span class="cfg-n" id="eye-dur">60</span>
+          <button class="cfg-btn" onclick="eyeCfg('dur',10)">+</button>
+        </div>
+      </div>
+    </div>
+    <canvas id="eye-canvas" width="480" height="320" style="margin-top:8px"></canvas>
+    <div id="eye-msg" style="font-size:13px;color:var(--gray);text-align:center;margin-top:10px;padding:0 8px">
+      Suis le point rouge avec tes yeux — tête immobile
+    </div>
+    <button class="bb r" id="eye-btn" onclick="eyeStart()">DÉMARRER</button>
+  </div>
+
+  <!-- ── RYTHME MAIN/PIED ──────────────────────────────── -->
+  <div class="tv" id="tv-rythme">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Rythme Main/Pied</div>
+        <div class="tv-sub">Tape + dis le décompte à voix haute</div>
+      </div>
+    </div>
+    <div class="cfg-block" id="ry-cfg">
+      <div class="cfg-row">
+        <span class="cfg-lbl">Décompte depuis</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="ryCfg('from',-50)">−</button>
+          <span class="cfg-n" id="ry-from">100</span>
+          <button class="cfg-btn" onclick="ryCfg('from',50)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Compter par</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="ryCfg('by',-1)">−</button>
+          <span class="cfg-n" id="ry-by">1</span>
+          <button class="cfg-btn" onclick="ryCfg('by',1)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Vitesse signal (s)</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="ryCfg('spd',-0.5)">−</button>
+          <span class="cfg-n" id="ry-spd">1.0</span>
+          <button class="cfg-btn" onclick="ryCfg('spd',0.5)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Membres actifs</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="ryCfg('limbs',0)" style="font-size:11px;width:auto;padding:0 8px">CHANGER</button>
+          <span class="cfg-n" id="ry-limbs" style="font-size:12px;min-width:60px">Mains+Pieds</span>
+        </div>
+      </div>
+    </div>
+    <div id="ry-run" style="display:none;flex-direction:column;align-items:center;width:100%">
+      <div class="ry-say">DIS À VOIX HAUTE ↓</div>
+      <div class="ry-count-big" id="ry-count">100</div>
+      <div class="ry-say">TAPE LE MEMBRE EN ROUGE</div>
+      <div style="position:relative;width:200px;height:260px;margin:0 auto 12px;flex-shrink:0">
+        <div id="ry-lh" class="ry-limb" style="top:28%;left:-12%">MAIN G</div>
+        <div id="ry-rh" class="ry-limb" style="top:28%;right:-12%">MAIN D</div>
+        <div id="ry-lf" class="ry-limb" style="bottom:2%;left:-12%">PIED G</div>
+        <div id="ry-rf" class="ry-limb" style="bottom:2%;right:-12%">PIED D</div>
+        <svg viewBox="0 0 200 260" width="200" height="260" style="position:absolute;top:0;left:0">
+          <ellipse cx="100" cy="28" rx="26" ry="26" fill="#2D2D2D"/>
+          <rect x="80" y="54" width="40" height="90" rx="14" fill="#2D2D2D"/>
+          <rect x="36" y="56" width="40" height="68" rx="13" fill="#2D2D2D"/>
+          <rect x="124" y="56" width="40" height="68" rx="13" fill="#2D2D2D"/>
+          <rect x="78" y="142" width="22" height="78" rx="11" fill="#2D2D2D"/>
+          <rect x="100" y="142" width="22" height="78" rx="11" fill="#2D2D2D"/>
+        </svg>
+      </div>
+      <div style="width:100%;background:var(--border);border-radius:99px;height:8px;overflow:hidden;margin-bottom:6px">
+        <div id="ry-timerbar" style="height:100%;background:linear-gradient(to right,var(--red),var(--orange));border-radius:99px;width:100%;transition:width .9s linear"></div>
+      </div>
+      <div id="ry-timernum" style="font-size:28px;font-weight:900;color:var(--white);text-align:center">2:00</div>
+    </div>
+    <button class="bb r" id="ry-btn" onclick="ryStart()">DÉMARRER — 2 MIN</button>
+  </div>
+
+  <!-- ── GO/NO-GO SOLO ──────────────────────────────────── -->
+  <div class="tv" id="tv-gonogo">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Go/No-Go Solo</div>
+        <div class="tv-sub">Seul — visuel, audio ou mixte</div>
+      </div>
+    </div>
+    <div class="cfg-block" id="gng-cfg">
+      <div class="cfg-row">
+        <span class="cfg-lbl">Mode</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="gngModeCfg(-1)">◀</button>
+          <span class="cfg-n" id="gng-mode-n" style="font-size:11px;min-width:60px">Visuel</span>
+          <button class="cfg-btn" onclick="gngModeCfg(1)">▶</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Complexité</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="gngCfg('complex',-1)">−</button>
+          <span class="cfg-n" id="gng-complex-n">1</span>
+          <button class="cfg-btn" onclick="gngCfg('complex',1)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Délai entre stimuli (s)</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="gngCfg('isi',-0.5)">−</button>
+          <span class="cfg-n" id="gng-isi-n">1.5</span>
+          <button class="cfg-btn" onclick="gngCfg('isi',0.5)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Nombre de stimuli</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="gngCfg('rounds',-5)">−</button>
+          <span class="cfg-n" id="gng-rounds-n">20</span>
+          <button class="cfg-btn" onclick="gngCfg('rounds',5)">+</button>
+        </div>
+      </div>
+    </div>
+    <div id="gng-game" style="display:none;flex-direction:column;align-items:center;width:100%">
+      <div id="gng-rule" style="font-size:12px;font-weight:700;background:var(--card);border-radius:8px;padding:8px 12px;color:var(--gray);text-align:center;width:100%;margin-bottom:8px;border:1px solid var(--border)"></div>
+      <div class="stats-row">
+        <div class="sp"><div class="sp-n g" id="gng-hits">0</div><div class="sp-l">Hits</div></div>
+        <div class="sp"><div class="sp-n r" id="gng-fas">0</div><div class="sp-l">Fausses</div></div>
+        <div class="sp"><div class="sp-n" id="gng-miss">0</div><div class="sp-l">Ratés</div></div>
+      </div>
+      <div class="gng-stim" id="gng-stim"></div>
+      <div id="gng-fb" style="font-size:22px;font-weight:900;min-height:30px;text-align:center"></div>
+      <div class="tap-zone-big" id="gng-tapzone" onclick="gngTap()" style="display:none">TAPE ICI</div>
+    </div>
+    <div id="gng-result" style="display:none;width:100%"></div>
+    <button class="bb r" id="gng-btn" onclick="gngStart()">DÉMARRER</button>
+  </div>
+
+  <!-- ── MULTI-SENSORIEL ────────────────────────────────── -->
+  <div class="tv" id="tv-multi">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Multi-Sensoriel</div>
+        <div class="tv-sub">Son + couleur + distraction</div>
+      </div>
+    </div>
+    <div class="cfg-block" id="ms-cfg">
+      <div class="cfg-row">
+        <span class="cfg-lbl">Nombre de choix</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="msCfg('choices',-1)">−</button>
+          <span class="cfg-n" id="ms-choices">3</span>
+          <button class="cfg-btn" onclick="msCfg('choices',1)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Mode</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="msCfg('mode',-1)">◀</button>
+          <span class="cfg-n" id="ms-mode-n" style="font-size:10px;min-width:60px">Visuel+Son</span>
+          <button class="cfg-btn" onclick="msCfg('mode',1)">▶</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Délai (s)</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="msCfg('isi',-0.5)">−</button>
+          <span class="cfg-n" id="ms-isi">2.0</span>
+          <button class="cfg-btn" onclick="msCfg('isi',0.5)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Distraction sonore</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="msCfg('distract',0)" style="font-size:11px;width:auto;padding:0 10px">TOGGLE</button>
+          <span class="cfg-n" id="ms-dist-n" style="font-size:13px;min-width:36px">OFF</span>
+        </div>
+      </div>
+    </div>
+    <div id="ms-game" style="display:none;flex-direction:column;align-items:center;width:100%">
+      <div id="ms-instr" style="font-size:12px;font-weight:700;color:var(--gray);text-align:center;margin-bottom:8px"></div>
+      <div class="cr-stim" id="ms-stim"></div>
+      <div id="ms-fb2" style="font-size:22px;font-weight:900;min-height:30px;text-align:center"></div>
+      <div class="tap-zone-big" id="ms-tapzone-audio" onclick="msAudioTap()" style="display:none">👂 TAPE ICI — mode yeux fermés</div>
+      <div class="cr-tgts" id="ms-tgts"></div>
+    </div>
+    <div id="ms-result" style="display:none;width:100%"></div>
+    <button class="bb r" id="ms-btn" onclick="msStart()">DÉMARRER</button>
+  </div>
+
+  <!-- ── RÉACTION SOLO ──────────────────────────────────── -->
+  <div class="tv" id="tv-react-solo">
+    <div class="tv-top">
+      <button class="tv-back" onclick="showToolGrid()">← Retour</button>
+      <div class="tv-h">
+        <div class="tv-title">Réaction Solo</div>
+        <div class="tv-sub">Remplace stylo + partenaire</div>
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--gray);text-align:center;margin-bottom:12px;line-height:1.5">
+      Pose le téléphone à plat ou tiens-le dans tes deux mains. Ferme les yeux. Appuie dès que tu entends le bip.
+    </div>
+    <div class="cfg-block" id="rso-cfg">
+      <div class="cfg-row">
+        <span class="cfg-lbl">Signal</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="rsoCfg('mode',-1)">◀</button>
+          <span class="cfg-n" id="rso-mode-n" style="font-size:10px;min-width:60px">Son+Flash</span>
+          <button class="cfg-btn" onclick="rsoCfg('mode',1)">▶</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Délai aléatoire</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="rsoCfg('delay',-1)">−</button>
+          <span class="cfg-n" id="rso-delay-n" style="font-size:12px;min-width:44px">2–8s</span>
+          <button class="cfg-btn" onclick="rsoCfg('delay',1)">+</button>
+        </div>
+      </div>
+      <div class="cfg-row">
+        <span class="cfg-lbl">Essais</span>
+        <div class="cfg-ctrl">
+          <button class="cfg-btn" onclick="rsoCfg('trials',-5)">−</button>
+          <span class="cfg-n" id="rso-trials-n">10</span>
+          <button class="cfg-btn" onclick="rsoCfg('trials',5)">+</button>
+        </div>
+      </div>
+    </div>
+    <div id="rso-game" style="display:none;flex-direction:column;align-items:center;width:100%">
+      <div id="rso-instr" style="font-size:13px;font-weight:700;color:var(--gray);text-align:center;margin-bottom:10px;line-height:1.5"></div>
+      <div class="stats-row">
+        <div class="sp"><div class="sp-n" id="rso-trial-n">0/10</div><div class="sp-l">Essai</div></div>
+        <div class="sp"><div class="sp-n g" id="rso-rt-last">—</div><div class="sp-l">Dernier ms</div></div>
+      </div>
+      <div class="pvt-dot" id="rso-dot" onclick="rsoTap()" style="margin:16px 0">ATTENDS</div>
+      <div id="rso-fb" style="font-size:15px;font-weight:700;color:var(--gray);text-align:center"></div>
+    </div>
+    <div id="rso-result" style="display:none;width:100%"></div>
+    <button class="bb r" id="rso-btn" onclick="rsoStart()">DÉMARRER</button>
+  </div>
+
 </div>
 
 <script>
@@ -227,15 +804,19 @@ const PROGRAM={
     seances:[
       {
         title:"Réaction Visuelle — Test de Base",duration:15,color:"var(--red)",tag:"Entrée visuelle",
+        toolHint:{tool:'tv-pvt',icon:'⚡',label:'Teste ta fatigue mentale en premier',sub:' — Fais le PVT avant de commencer. Si ton score dépasse 350ms, réduis l\'intensité de la séance.'},
         exos:[
           {icon:"🃏",name:"Jeu de Cartes Réaction",dose:"3 séries × 10 cartes — note ton score",
            steps:["Partenaire tient un jeu de cartes face cachée","Il retourne une carte : rouge = tu frappes dans les mains UNE FOIS, noir = tu restes immobile","Compter les bonnes réponses sur 10 — note le score dans un carnet","Règle simple : si tu bouges sur une carte noire, c'est raté","Mesure ce que tu fais VRAIMENT, pas ce que tu penses faire"],
+           levels:["🟢 Débutant : 1 carte/2s, règle rouge/noir simple","🟠 Intermédiaire : 1 carte/s, ajoute rouge pair=Go","🔴 Expert : 2 cartes/s, 2 règles simultanées"],
            why:"Développe la voie visuo-motrice — la vitesse à laquelle ton cerveau traite une information visuelle et déclenche (ou bloque) une réponse motrice. C'est le mécanisme de base derrière chaque entrée en technique."},
           {icon:"⏱",name:"Chrono de Réaction Brute",dose:"10 essais — note la moyenne",
            steps:["Partenaire tient une règle ou un stylo verticalement entre tes doigts ouverts (main à hauteur de poitrine)","Il lâche sans te prévenir — tu l'attrapes le plus vite possible","Mesure le niveau auquel tu l'attrapes (plus haut = plus lent)","Note la distance en cm sur les 10 essais — calcule la moyenne","C'est ta ligne de base semaine 1"],
+           levels:["🟢 Débutant : main dominante, stylo vertical","🟠 Intermédiaire : main non-dominante","🔴 Expert : main non-dominante + tête tournée côté opposé"],
            why:"Ce test mesure le temps de réaction pur — sans décision. Il sert de référence pour voir ta progression sur 12 semaines."},
           {icon:"🦾",name:"Test Kinesthésique de Base — Sens du Bras",dose:"5 répétitions — note l'écart",
            steps:["Debout, bras droit tendu à l'horizontale sur le côté — mémorise cette position","Ferme les yeux et baisse le bras","Remonte-le exactement à la même hauteur que tu penses l'avoir mémorisée","Ouvre les yeux — mesure l'écart en degrés ou en cm à hauteur de main","C'est ta ligne de base kinesthésique — elle va s'affiner chaque semaine"],
+           levels:["🟢 Débutant : bras à l'horizontale simple","🟠 Intermédiaire : bras + jambe simultanément","🔴 Expert : bras dans le dos, position complexe"],
            why:"Le sens de position du bras (kinesthésie articulaire) est souvent sous-développé même chez les athlètes entraînés. Cet écart initial (souvent 10-15cm) se réduit à 2-3cm avec un entraînement ciblé. Chaque centimètre gagné représente une amélioration directe de la précision du contrôle corporel."},
         ]
       },
@@ -269,13 +850,20 @@ const PROGRAM={
     seances:[
       {
         title:"Vision Périphérique",duration:15,color:"var(--red)",tag:"Entrée visuelle",
+        toolHint:{tool:'tv-eye',icon:'👁',label:'Lance Eye Training — mode Poursuite',sub:' — 60s de poursuite lisse avant les exercices pour activer le système oculomoteur.'},
         exos:[
           {icon:"👁",name:"Expansion du Champ Visuel",dose:"3 × 3 minutes",
            steps:["Assis, fixe un point droit devant toi (un objet sur le mur) — ne bouge PAS les yeux","Partenaire déplace lentement sa main sur les côtés, au-dessus et en-dessous","Dès que tu détectes le mouvement en vision périphérique, dis 'là'","Essaie d'étendre progressivement la zone que tu peux détecter sans bouger les yeux","Progresser : partenaire lève ou baisse le nombre de doigts — tu nommes le nombre"],
+           levels:["🟢 Débutant : détection de mouvement simple","🟠 Intermédiaire : compter les doigts en périphérie","🔴 Expert : identifier couleur + nombre simultanément"],
            why:"La vision périphérique est le système de détection rapide du cerveau. Elle traite le mouvement 3× plus vite que la vision centrale. L'entraîner élargit littéralement ta fenêtre de perception de l'adversaire."},
           {icon:"🎯",name:"Tracking — Suivre Sans Perdre",dose:"4 × 2 minutes",
            steps:["Partenaire tient un stylo et le déplace lentement dans l'espace (haut, bas, droite, gauche, diagonales)","Tu suis le stylo avec les yeux UNIQUEMENT — tête fixe","Partenaire accélère progressivement","Variante : deux objets dans chaque main — tu dois suivre les deux simultanément"],
+           levels:["🟢 Débutant : 1 stylo, vitesse lente","🟠 Intermédiaire : 2 objets simultanés","🔴 Expert : 2 objets + nommer couleurs en vision périphérique"],
            why:"Développe la coordination oeil-cerveau et la capacité à suivre plusieurs éléments en même temps — utile pour lire simultanément la posture, les mains et les pieds d'un adversaire."},
+          {icon:"🤹",name:"Jonglage 2 Balles — Initiation",dose:"3 × 3 minutes — note le record de lancers consécutifs",
+           steps:["Prends 2 balles (chaussettes roulées en boule, mandarines, balles de tennis)","Une balle dans chaque main — lance la droite en arc vers la gauche","Quand elle arrive au sommet, lance la gauche vers la droite","Attrape — répète en rythme continu : droite→gauche→droite→gauche","Ne regarde PAS les mains — fixe un point devant toi à hauteur des yeux","Note ton record de lancers consécutifs — objectif : 20 cette semaine"],
+           levels:["🟢 Débutant : 2 balles, les deux mains en alternance","🟠 Intermédiaire : 2 balles + compte à rebours à voix haute","🔴 Expert : 2 balles + tête fixe + nommer objet en vision périphérique"],
+           why:"Le jonglage est l'un des exercices neuro les plus documentés. Il force le cerveau à coordonner la vision périphérique (regarder devant, voir les balles sur les côtés), la planification motrice (préparer le prochain lancer pendant l'actuel) et l'attention divisée — les trois mêmes systèmes que tu utilises pour lire un adversaire tout en construisant ta propre technique."},
         ]
       },
       {
@@ -361,6 +949,7 @@ const PROGRAM={
     seances:[
       {
         title:"Go/No-Go Visuel",duration:15,color:"var(--red)",tag:"Décision",
+        toolHint:{tool:'tv-card',icon:'🃏',label:'Outil Cartes Go/No-Go — mesure ton inhibition',sub:' — Fais 20 cartes dans l\'outil avant les exercices. Note ton score d\'erreurs — c\'est ta ligne de base semaine 4.'},
         exos:[
           {icon:"🃏",name:"Cartes Go/No-Go Progressif",dose:"5 séries × 12 cartes",
            steps:["Partenaire retourne des cartes rapidement une par une","Règle de base : rouge = frappe des deux mains (Go), noir = rien (No-Go)","Série 2 : rouge pair = Go, tout le reste = No-Go (le cerveau doit filtrer plus finement)","Série 3 : partenaire accélère encore — 1 carte par seconde","Série 4 : partenaire peut répéter la même carte — tu ne dois pas t'adapter par habitude","Note le % de No-Go ratés (tu as agi alors qu'il fallait rester immobile)"],
@@ -400,12 +989,18 @@ const PROGRAM={
     seances:[
       {
         title:"Double Tâche Moteur + Cognitif",duration:15,color:"var(--red)",tag:"Attention divisée",
+        toolHint:{tool:'tv-mot',icon:'🔵',label:'Tracking Balle — entraîne l\'attention divisée',sub:' — Lance 3 rounds de Tracking avant cette séance. L\'outil sollicite exactement les mêmes circuits que les exercices double-tâche.'},
         exos:[
+          {icon:"🤹",name:"Jonglage 3 Balles — Construction",dose:"4 × 4 minutes — note le record",
+           steps:["Maîtrise d'abord 2 balles (semaine 2) — si pas encore acquis, reste à 2","Pour 3 balles : commence 2 dans la main dominante, 1 dans l'autre","Lance une des 2 en arc, puis l'autre, puis attrape la première...","Le secret : chaque balle suit la même trajectoire en arc — ne pousse jamais vers l'autre main","Pendant que tu jongle : partenaire dit des chiffres — tu les répètes à voix haute sans t'arrêter","Note le record de lancers consécutifs — objectif : 10 sans s'arrêter"],
+           levels:["🟢 Débutant : 3 balles, 5 lancers sans chute","🟠 Intermédiaire : 3 balles + calcul mental à voix haute","🔴 Expert : 3 balles + nommer couleurs en vision périphérique + question de logique"],
+           why:"Le jonglage à 3 balles est le protocole standard de recherche en neurosciences pour mesurer la plasticité cérébrale. Des études IRM ont montré une augmentation de la matière blanche dans les zones visuelles et motrices après 6 semaines. Ajouter une tâche cognitive pendant le jonglage simule exactement la surcharge informationnelle d'un combat."},
           {icon:"🧠",name:"Marche + Calcul Mental",dose:"5 × 2 minutes",
            steps:["Marche en cercle dans la pièce à rythme normal","Pendant que tu marches, compte à rebours depuis 100 par 3","Partenaire peut intervenir avec un signal (mot, bruit) — tu dois répondre correctement tout en continuant les deux autres tâches","Si tu perds le calcul, reprends depuis le dernier nombre — note le nombre de reprises","Progresser : ajouter une contrainte motrice (marche en arrière, sur une ligne...)"],
            why:"Le double task entraîne la capacité de l'attention à se partager efficacement. La dégradation de performance en double task diminue avec l'entraînement — les judokas de haut niveau maintiennent leur précision décisionnelle même en plein effort physique."},
           {icon:"🤲",name:"Tapotements Alternatifs + Séquence",dose:"4 × 90 secondes",
            steps:["Main droite tape la cuisse droite en rythme régulier (tic tic tic...)","En même temps, main gauche fait une séquence différente : 1 tape, pause, 2 tapes, pause, 3 tapes...","Les deux mains bougent en même temps mais à des rythmes différents","Passe à des séquences plus complexes quand tu maîtrises","Variante : partenaire dit un nombre — tu dois l'intégrer dans la séquence sans interrompre le tapotement"],
+           levels:["🟢 Débutant : main D en rythme stable, main G compte 1-2-3","🟠 Intermédiaire : rythmes différents + partenaire distrait","🔴 Expert : 3 membres indépendants (mains + pied) + répondre aux questions"],
            why:"L'indépendance des deux mains à des rythmes différents développe la coordination bimanuelle et la conscience motrice divisée — utile pour gérer indépendamment les deux bras lors d'une saisie ou d'une entrée."},
         ]
       },
@@ -436,6 +1031,7 @@ const PROGRAM={
     seances:[
       {
         title:"Induire et Mesurer la Fatigue Mentale",duration:15,color:"var(--red)",tag:"Fatigue cognitive",
+        toolHint:{tool:'tv-pvt',icon:'⚡',label:'PVT obligatoire — avant ET après la séance',sub:' — Mesure ton temps de réaction au départ, puis refais le test après l\'effort cognitif intense. L\'écart avant/après = ta vulnérabilité à la fatigue mentale.'},
         exos:[
           {icon:"🔋",name:"Épuisement Cognitif Contrôlé",dose:"10 minutes de tâche intense puis 5 minutes de test",
            steps:["10 minutes : compte à rebours depuis 200 par 7 SANS t'arrêter, à voix haute, le plus vite possible","Si tu rates, continue depuis l'erreur — ne t'arrête pas","À la fin des 10 minutes : partenaire fait le test des cartes Go/No-Go (12 cartes)","Note le % de bonnes réponses en état de fatigue mentale","Compare au même test en début de séance (sans fatigue)"],
@@ -475,6 +1071,7 @@ const PROGRAM={
     seances:[
       {
         title:"Stress Aigu et Décision",duration:15,color:"var(--red)",tag:"Stress + Décision",
+        toolHint:{tool:'tv-card',icon:'🃏',label:'Cartes Go/No-Go sous stress — mesure la dégradation',sub:' — Fais 20 cartes dans l\'outil juste après t\'être mis sous pression (sauts, burpees 30s). Compare avec ton score reposé.'},
         exos:[
           {icon:"💥",name:"Induction de Stress + Go/No-Go",dose:"5 cycles",
            steps:["Partenaire te met sous pression verbalement (ton chrono tourne, il commente, il presse) pendant 60 secondes — tu dois tenir sans réagir","STOP — immédiatement le test Go/No-Go (10 cartes rapides)","Note si le stress a dégradé tes réponses","Puis 90 secondes de respiration 4s/6s","Refais le test — compare les scores"],
@@ -514,13 +1111,20 @@ const PROGRAM={
     seances:[
       {
         title:"Coordination Bimanuelle",duration:15,color:"var(--red)",tag:"Commande motrice",
+        toolHint:{tool:'tv-seq',icon:'🔢',label:'Séquences Visuelles — active la mémoire motrice',sub:' — 5 minutes de Séquences avant cette séance pour préparer les circuits de mémoire de mouvement.'},
         exos:[
           {icon:"🤲",name:"Rythmes Différents par Main",dose:"4 × 2 minutes",
            steps:["Main droite : tapote ta cuisse au rythme 1-2-3-1-2-3 (valse)","Main gauche : tapote au rythme 1-2-1-2 (marche) simultanément","Les deux mains en même temps — rythmes différents","Quand tu maîtrises : inverse les rythmes (gauche fait la valse, droite la marche)","Progresser : ajouter une tâche verbale (compter de 10 en 10) pendant l'exercice"],
+           levels:["🟢 Débutant : valse main D + marche main G, tempo lent","🟠 Intermédiaire : inverse + compter à voix haute","🔴 Expert : 3 rythmes différents (main G, main D, pied) simultanément"],
            why:"L'indépendance bimanuelle développe le corps calleux et la coordination inter-hémisphérique. En judo, les deux bras font souvent des choses différentes simultanément — tsurite et hikite ont des rôles opposés lors d'une entrée."},
-          {icon:"✏️",name:"Écriture en Miroir",dose:"3 × 3 minutes",
-           steps:["Stylo dans chaque main","La main dominante écrit normalement un mot, la non-dominante l'écrit en miroir en même temps","Commence par des mots courts (3-4 lettres)","Augmenter la longueur progressivement","Variante : les deux mains écrivent des mots différents en même temps"],
-           why:"Écrire en miroir avec la main non-dominante force une réorganisation des commandes motrices et active des circuits inhabituels. Ce type de challenge cognitivo-moteur augmente la plasticité neurale et la flexibilité des schémas moteurs."},
+          {icon:"🤹",name:"Jonglage sous Pression Cognitive",dose:"4 × 3 minutes",
+           steps:["Jongle avec 2 ou 3 balles selon ton niveau actuel — rythme stable","Pendant le jonglage, partenaire te pose des questions de calcul ou de logique simple (3×7 ? Capitale de l'Espagne ?)","Tu dois répondre à voix haute SANS interrompre le jonglage","Si tu rates une balle, reprends immédiatement — ne t'arrête pas pour répondre","Note : est-ce que le jonglage dégrade ta précision cognitique ? Ou l'inverse ?"],
+           levels:["🟢 Débutant : 2 balles + questions très simples","🟠 Intermédiaire : 3 balles + calculs mentaux","🔴 Expert : 3 balles + conversation complète + regard fixe devant"],
+           why:"Le jonglage sous charge cognitive teste directement la capacité à exécuter une tâche motrice complexe tout en maintenant une performance cognitive — exactement comme un combat où le cerveau gère simultanément la technique, le score, la fatigue et la stratégie."},
+          {icon:"🔄",name:"Coordination Croisée Main-Pied",dose:"3 × 2 minutes chaque pattern",
+           steps:["Pattern 1 — Même côté : tape main droite + lève pied droit simultanément, puis gauche + gauche en alternance","Pattern 2 — Croix : tape main droite + lève pied gauche, puis main gauche + pied droit","Pattern 3 — Désynchronisé : main droite tape 2× puis pied gauche 1× — ratio différent","Fais chaque pattern 2 minutes en rythme stable","Ajoute de la vitesse progressivement — objectif : ne plus avoir à y penser"],
+           levels:["🟢 Débutant : même côté, tempo lent (1 coup/2s)","🟠 Intermédiaire : croix à vitesse normale","🔴 Expert : les 3 patterns enchaînés + comptage à voix haute"],
+           why:"La coordination croisée (main/pied controlatéraux) entraîne les connexions inter-hémisphériques via le corps calleux. En judo, chaque projection implique une coordination main-pied complexe — le kuzushi (déséquilibre) passe par des bras, mais la puissance vient des jambes en sens opposé."},
         ]
       },
       {
@@ -592,6 +1196,7 @@ const PROGRAM={
     seances:[
       {
         title:"Choix Multiples en Temps Limité",duration:15,color:"var(--red)",tag:"Décision rapide",
+        toolHint:{tool:'tv-cr',icon:'🎯',label:'Réaction Couleur — ISI 1s, 3 sets × 15 rounds',sub:' — Configure l\'outil au maximum : délai 1s, 15 rounds, 3 sets. C\'est ta baseline peak. Vise <280ms de moyenne.'},
         exos:[
           {icon:"⚡",name:"4 Choix — 1 Seconde Maximum",dose:"5 séries × 10 signaux",
            steps:["4 objets devant toi : rouge, bleu, vert, jaune","Partenaire crie une des 4 couleurs — tu touches l'objet en moins de 1 seconde","Série 2 : les règles changent (rouge = gauche, bleu = droite, vert = haut, jaune = bas — tu pointes)","Série 3 : partenaire peut mentir (dire rouge en montrant bleu — tu suis ce qu'il dit ou ce qu'il montre selon la règle en cours)","Objectif : maintenir 85%+ de précision à la vitesse maximale"],
@@ -628,7 +1233,12 @@ const PROGRAM={
     seances:[
       {
         title:"Protocole Compétition Simulée",duration:15,color:"var(--red)",tag:"Simulation",
+        toolHint:{tool:'tv-pvt',icon:'⚡',label:'PVT + Réaction Couleur — mesure ton pic',sub:' — Fais PVT puis Réaction Couleur (ISI 1s) en début de séance. Ces scores sont ton étalon de performance maximale pour la compétition.'},
         exos:[
+          {icon:"🤹",name:"Jonglage Expert — Test de Niveau Final",dose:"5 minutes — ton meilleur score",
+           steps:["Ton niveau actuel : 2 balles ou 3 selon ta progression","Réalise ton meilleur enchaînement SANS t'arrêter — chronomètre lancé","Pendant le jonglage : partenaire te pose 5 questions de logique (ton âge × 3 ? capitales ? etc.)","Tu réponds sans t'arrêter — une réponse = une question = jonglage continue","Note : durée totale + nombre de réponses correctes","C'est ton 'score de jonglage cognitif' semaine 11 — compare à la semaine 5"],
+           levels:["🟢 Débutant : 2 balles 2 minutes + 3 questions","🟠 Intermédiaire : 3 balles 3 minutes + 5 questions","🔴 Expert : 3 balles + conversation + regard fixe + yeux fermés 5 lancers"],
+           why:"Le jonglage expert avec charge cognitive est un test de maturité neuro. En 9 semaines tu es passé de 'comment ne pas rater' à 'jongler sans y penser pendant qu'on me challenge'. Ce gain d'automatisation libère de la bande passante cognitive — disponible pour les vraies décisions en combat."},
           {icon:"🏆",name:"La Journée de Compétition Mentale",dose:"15 minutes — complet",
            steps:["Phase 1 — 3 min : Activation (10 respirations rapides puis 3 lentes, ancrage poing serré × 3, nommer 3 intentions)","Phase 2 — 5 min : Test cognitif de niveau maximal (Go/No-Go + double tâche + décision sous pression — tout enchaîné)","Phase 3 — 2 min : Inter-combat (respiration 5s/5s, nommer l'émotion, reset)","Phase 4 — 5 min : Second round (même test cognitif — mesure si tu maintiiens le niveau)","Note les deux scores — l'écart Round 1/Round 2 est ta cible d'amélioration"],
            why:"Simuler la structure d'une journée de compétition (activation → combat → récupération → combat) entraîne le système nerveux à gérer la répétition des efforts cognitifs avec récupération partielle. C'est la réalité d'un tournoi."},
@@ -680,6 +1290,7 @@ const PROGRAM={
       },
       {
         title:"Mesure Finale & Ancrage Durable",duration:10,color:"var(--orange)",tag:"Bilan",
+        toolHint:{tool:'tv-pvt',icon:'📊',label:'Mesures finales — PVT + Réaction Couleur + Cartes',sub:' — Fais les 3 outils et note tes scores. Compare à la semaine 1. Ces chiffres sont la preuve chiffrée de 12 semaines de travail.'},
         exos:[
           {icon:"📊",name:"Mesures Finales — Comparer à la Semaine 1",dose:"8 minutes",
            steps:["Refais le test de réaction aux cartes Go/No-Go (3 séries × 10) — note le score","Refais le comptage à rebours 2 minutes — jusqu'où arrives-tu ?","Refais l'estimation du rythme cardiaque — quel est l'écart avec la réalité ?","Compare chaque score à la semaine 1 — note les progressions en chiffres","Ces chiffres sont la preuve de ton travail"],
@@ -846,6 +1457,11 @@ function renderWeek(){
         <div class="seance-chevron">▼</div>
       </div>
       <div class="seance-body">
+        ${seance.toolHint?`<div class="tool-hint" onclick="openToolFromProg('${seance.toolHint.tool}')">
+          <div class="tool-hint-icon">${seance.toolHint.icon}</div>
+          <div class="tool-hint-txt"><strong>${seance.toolHint.label}</strong>${seance.toolHint.sub}</div>
+          <div class="tool-hint-arrow">→ OUTILS</div>
+        </div>`:''}
         <div class="exo-list">${seance.exos.map(exo=>renderExo(exo,color)).join('')}</div>
       </div>
     </div>`;
@@ -873,6 +1489,9 @@ function renderWeek(){
 }
 
 function renderExo(exo,accentColor){
+  const levelsHtml=exo.levels?`<div class="exo-levels">
+    ${exo.levels.map((l,i)=>`<span class="lvl lvl-${i+1}">${['🟢','🟠','🔴'][i]} ${l}</span>`).join('')}
+  </div>`:'';
   return `<div class="exo" style="border-left-color:${accentColor}">
     <div class="exo-header">
       <div class="exo-icon">${exo.icon}</div>
@@ -887,6 +1506,7 @@ function renderExo(exo,accentColor){
         <span>${s}</span>
       </li>`).join('')}
     </ul>
+    ${levelsHtml}
     <div class="exo-why"><strong>Ce que ça développe :</strong> ${exo.why}</div>
   </div>`;
 }
@@ -981,6 +1601,933 @@ async function sendToSheets(w,q1,q2,q3){
     console.error('Sheets error:',err);
   }
 }
+
+// ═══════════════════════════════════════════════
+// AUDIO ENGINE
+// ═══════════════════════════════════════════════
+let _ac=null;
+function getAC(){
+  if(!_ac){try{_ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
+  return _ac;
+}
+function tone(freq,dur,type='sine',vol=0.45){
+  const c=getAC();if(!c)return;
+  if(c.state==='suspended')c.resume();
+  const o=c.createOscillator(),g=c.createGain();
+  o.connect(g);g.connect(c.destination);
+  o.type=type;o.frequency.value=freq;
+  g.gain.setValueAtTime(vol,c.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+dur);
+  o.start(c.currentTime);o.stop(c.currentTime+dur+0.05);
+}
+function playGo(){tone(880,0.18,'sine',0.5);}
+function playNoGo(){tone(220,0.35,'sawtooth',0.4);}
+function playBip(){tone(660,0.07,'square',0.35);}
+function playDist(){tone(150+Math.random()*400,0.12,'sine',0.18);}
+
+// ═══════════════════════════════════════════════
+// OUTIL : RYTHME MAIN/PIED
+// ═══════════════════════════════════════════════
+const RY={from:100,by:1,spd:1.0,limbs:'all'};
+const RY_BY_STEPS=[1,2,3,5,7,10];
+let ryRunning=false,ryIv=null,ryCdIv=null,ryN=0,ryTime=0;
+
+function ryCfg(k,d){
+  if(k==='from')RY.from=Math.max(50,Math.min(300,RY.from+d));
+  if(k==='by'){
+    const i=RY_BY_STEPS.indexOf(RY.by);
+    RY.by=RY_BY_STEPS[Math.max(0,Math.min(RY_BY_STEPS.length-1,i+d))];
+  }
+  if(k==='spd')RY.spd=Math.max(0.5,Math.min(3,+(RY.spd+d).toFixed(1)));
+  if(k==='limbs')RY.limbs=RY.limbs==='all'?'hands':RY.limbs==='hands'?'mains-pieds':RY.limbs==='mains-pieds'?'alt':'all';
+  document.getElementById('ry-from').textContent=RY.from;
+  document.getElementById('ry-by').textContent=RY.by;
+  document.getElementById('ry-spd').textContent=RY.spd.toFixed(1);
+  const lbls={all:'Mains+Pieds',hands:'Mains seules','mains-pieds':'Main+Pied croisés',alt:'Alternance'};
+  document.getElementById('ry-limbs').textContent=lbls[RY.limbs]||'Mains+Pieds';
+}
+
+function ryGetLimbs(){
+  if(RY.limbs==='hands')return ['lh','rh'];
+  if(RY.limbs==='mains-pieds')return ['lh','rf','rh','lf']; // always alternate cross
+  if(RY.limbs==='alt')return ['lh','rf','rh','lf']; // same as cross but sequential
+  return ['lh','rh','lf','rf'];
+}
+
+let ryAltIdx=0;
+function ryPickLimb(){
+  const pool=ryGetLimbs();
+  if(RY.limbs==='alt'){ryAltIdx=(ryAltIdx+1)%pool.length;return pool[ryAltIdx];}
+  if(RY.limbs==='mains-pieds'){ryAltIdx=(ryAltIdx+1)%pool.length;return pool[ryAltIdx];}
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+
+function ryStart(){
+  if(ryRunning){ryStop();return;}
+  // Unlock audio
+  getAC();
+  ryRunning=true;ryN=RY.from;ryTime=120;ryAltIdx=-1;
+  document.getElementById('ry-cfg').style.display='none';
+  document.getElementById('ry-run').style.display='flex';
+  document.getElementById('ry-btn').textContent='ARRÊTER';
+  ryTick();
+  ryIv=setInterval(ryTick,Math.round(RY.spd*1000));
+  ryCdIv=setInterval(()=>{
+    ryTime--;
+    const m=Math.floor(ryTime/60),s=ryTime%60;
+    document.getElementById('ry-timernum').textContent=m+':'+(s<10?'0':'')+s;
+    document.getElementById('ry-timerbar').style.width=(ryTime/120*100)+'%';
+    if(ryTime<=0)ryStop();
+  },1000);
+}
+function ryTick(){
+  const limb=ryPickLimb();
+  ['lh','rh','lf','rf'].forEach(id=>{
+    const el=document.getElementById('ry-'+id);
+    if(el)el.classList.toggle('go',id===limb);
+  });
+  document.getElementById('ry-count').textContent=ryN;
+  ryN=ryN<=RY.by?RY.from:ryN-RY.by;
+  playBip();
+}
+function ryStop(){
+  ryRunning=false;
+  clearInterval(ryIv);clearInterval(ryCdIv);
+  document.getElementById('ry-cfg').style.display='';
+  document.getElementById('ry-run').style.display='none';
+  document.getElementById('ry-btn').textContent='DÉMARRER — 2 MIN';
+  ['lh','rh','lf','rf'].forEach(id=>{const el=document.getElementById('ry-'+id);if(el)el.classList.remove('go');});
+}
+
+// ═══════════════════════════════════════════════
+// OUTIL : GO/NO-GO SOLO
+// ═══════════════════════════════════════════════
+const GNG={mode:0,complex:1,isi:1.5,rounds:20};
+// mode: 0=Visuel 1=Audio(yeux fermés) 2=Mixte
+// complex: 1=simple(vert=go,rouge=nogo) 2=+distracteurs(orange=nogo) 3=1-back(même que précédent=go)
+const GNG_MODES=['Visuel','Audio (yeux fermés)','Mixte'];
+let gngRunning=false,gngRound=0,gngHits=0,gngFAs=0,gngMiss=0,gngRTs=[],gngIsGo=false,gngStimT=0,gngActive=false,gngTimer2=null,gngLastWasGo=false;
+
+function gngModeCfg(d){
+  GNG.mode=(GNG.mode+d+3)%3;
+  document.getElementById('gng-mode-n').textContent=GNG_MODES[GNG.mode];
+}
+function gngCfg(k,d){
+  if(k==='complex')GNG.complex=Math.max(1,Math.min(3,GNG.complex+d));
+  if(k==='isi')GNG.isi=+(Math.max(0.5,Math.min(3,GNG.isi+d))).toFixed(1);
+  if(k==='rounds')GNG.rounds=Math.max(10,Math.min(30,GNG.rounds+d));
+  document.getElementById('gng-complex-n').textContent=GNG.complex;
+  document.getElementById('gng-isi-n').textContent=GNG.isi;
+  document.getElementById('gng-rounds-n').textContent=GNG.rounds;
+}
+
+function gngStart(){
+  getAC();
+  document.getElementById('gng-cfg').style.display='none';
+  document.getElementById('gng-result').style.display='none';
+  document.getElementById('gng-game').style.display='flex';
+  document.getElementById('gng-btn').style.display='none';
+  // Rule text
+  const rules=['🟢 Vert = TAPE &nbsp;|&nbsp; 🔴 Rouge = STOP','Vert = GO &nbsp;|&nbsp; Rouge = STOP &nbsp;|&nbsp; Orange = STOP (distracteur)','Répète si même couleur que avant = GO &nbsp;|&nbsp; Différent = STOP'];
+  document.getElementById('gng-rule').innerHTML=rules[GNG.complex-1];
+  // Audio mode: show tap zone, hide visual targets
+  document.getElementById('gng-stim').className='gng-stim'+(GNG.mode===1?' audio-only':'');
+  document.getElementById('gng-tapzone').style.display=GNG.mode===1?'block':'none';
+  if(GNG.mode===1){
+    document.getElementById('gng-stim').textContent='👂';
+    document.getElementById('gng-stim').style.background='var(--dim)';
+    document.getElementById('gng-rule').innerHTML='Son aigu (880Hz) = TAPE &nbsp;|&nbsp; Son grave (220Hz) = STOP'+(GNG.complex>1?' &nbsp;|&nbsp; Son moyen (550Hz) = STOP':'');
+  }
+  gngRunning=true;gngRound=0;gngHits=0;gngFAs=0;gngMiss=0;gngRTs=[];gngActive=false;gngLastWasGo=false;
+  gngUpdateStats();
+  gngNextStim();
+}
+
+function gngNextStim(){
+  if(!gngRunning||gngRound>=GNG.rounds){gngFinish();return;}
+  gngRound++;
+  gngActive=false;
+  const stim=document.getElementById('gng-stim');
+  const fb=document.getElementById('gng-fb');
+  stim.style.background='var(--dim)';stim.textContent='';
+  fb.textContent='';
+  clearTimeout(gngTimer2);
+  gngTimer2=setTimeout(()=>{
+    if(!gngRunning)return;
+    // Determine stimulus
+    let isGo;
+    const r=Math.random();
+    if(GNG.complex===3){
+      // 1-back: 40% chance same as last (=Go), 60% different (=NoGo)
+      isGo=r<0.4;
+    }else{
+      isGo=r<0.65;
+    }
+    gngIsGo=isGo;
+    let color,shape,freq,ftype;
+    if(GNG.complex===1){
+      color=isGo?'#7ED957':'#FF5757';shape=isGo?'●':'✕';freq=isGo?880:220;ftype=isGo?'sine':'sawtooth';
+    }else if(GNG.complex===2){
+      if(isGo){color='#7ED957';shape='●';freq=880;ftype='sine';}
+      else if(r<0.4){color='#FF5757';shape='✕';freq=220;ftype='sawtooth';}
+      else{color='#FFBD59';shape='▲';freq=550;ftype='square';} // distractor
+    }else{
+      // 1-back: same color as last = Go
+      color=isGo?gngLastWasGo?'#7ED957':'#FF5757':'#7ED957'===(isGo?'#7ED957':'#FF5757')?'#FF5757':'#7ED957';
+      // Simpler: if Go → show what was shown last round (or new color if first)
+      color=isGo?'#7ED957':'#FF5757';shape=isGo?'●':'✕';freq=isGo?880:220;ftype=isGo?'sine':'sawtooth';
+    }
+    gngLastWasGo=isGo;
+    if(GNG.mode!==1){stim.style.background=color;stim.textContent=shape;}
+    if(GNG.mode!==0){tone(freq,0.22,ftype);}
+    gngStimT=Date.now();gngActive=true;
+    // Auto-miss after 1500ms
+    gngTimer2=setTimeout(()=>{
+      if(!gngRunning||!gngActive)return;
+      gngActive=false;
+      if(isGo){gngMiss++;gngUpdateStats();fb.style.color='var(--gray)';fb.textContent='⏱ Raté';}
+      setTimeout(gngNextStim,400);
+    },1500);
+  },Math.round(GNG.isi*1000));
+}
+
+function gngTap(){
+  if(!gngRunning)return;
+  clearTimeout(gngTimer2);
+  const rt=Date.now()-gngStimT;
+  const fb=document.getElementById('gng-fb');
+  if(!gngActive){fb.style.color='var(--orange)';fb.textContent='Trop tôt !';setTimeout(gngNextStim,600);return;}
+  gngActive=false;
+  if(gngIsGo){gngHits++;gngRTs.push(rt);fb.style.color='var(--green)';fb.textContent='✓ '+rt+'ms';}
+  else{gngFAs++;fb.style.color='var(--red)';fb.textContent='✗ Fausse alarme !';}
+  gngUpdateStats();
+  setTimeout(gngNextStim,500);
+}
+function gngUpdateStats(){
+  document.getElementById('gng-hits').textContent=gngHits;
+  document.getElementById('gng-fas').textContent=gngFAs;
+  document.getElementById('gng-miss').textContent=gngMiss;
+}
+function gngFinish(){
+  gngRunning=false;
+  document.getElementById('gng-game').style.display='none';
+  const avg=gngRTs.length?Math.round(gngRTs.reduce((a,b)=>a+b,0)/gngRTs.length):0;
+  const total=gngHits+gngFAs+gngMiss;
+  const pct=total?Math.round(gngHits/total*100):0;
+  const res=document.getElementById('gng-result');
+  res.style.display='block';
+  res.innerHTML=`<div class="res-block">
+    <div class="rr"><span class="rr-l">Temps moyen (Go)</span><span class="rr-v">${avg} ms</span></div>
+    <div class="rr"><span class="rr-l">Hits (Go correct)</span><span class="rr-v">${gngHits}</span></div>
+    <div class="rr"><span class="rr-l">Fausses alarmes (No-Go tapé)</span><span class="rr-v">${gngFAs}</span></div>
+    <div class="rr"><span class="rr-l">Omissions (Go raté)</span><span class="rr-v">${gngMiss}</span></div>
+    <div class="rr"><span class="rr-l">Précision globale</span><span class="rr-v">${pct}%</span></div>
+  </div>`;
+  const btn=document.getElementById('gng-btn');btn.style.display='block';btn.textContent='REJOUER';
+  document.getElementById('gng-cfg').style.display='';
+}
+
+// ═══════════════════════════════════════════════
+// OUTIL : MULTI-SENSORIEL
+// ═══════════════════════════════════════════════
+// mode: 0=Visuel+Son 1=Son seul(yeux fermés) 2=Visuel seul 3=Mixte+Distraction
+const MS={choices:3,mode:0,isi:2.0,distract:false};
+const MS_MODES=['Visuel+Son','Son seul (yeux fermés)','Visuel seul','Mixte+Distraction'];
+const MS_COLORS=['#FF5757','#7ED957','#FFBD59','#4B9EFF'];
+const MS_NAMES=['Rouge','Vert','Orange','Bleu'];
+const MS_FREQS=[392,523,659,784];
+let msRunning=false,msRound2=0,msTotal2=20,msRTs2=[],msErr2=0,msStimIdx2=-1,msStimT2=0,msActive2=false,msTimer2=null;
+
+function msCfg(k,d){
+  if(k==='choices')MS.choices=Math.max(2,Math.min(4,MS.choices+d));
+  if(k==='mode')MS.mode=(MS.mode+d+MS_MODES.length)%MS_MODES.length;
+  if(k==='isi')MS.isi=+(Math.max(0.5,Math.min(4,MS.isi+d))).toFixed(1);
+  if(k==='distract')MS.distract=!MS.distract;
+  document.getElementById('ms-choices').textContent=MS.choices;
+  document.getElementById('ms-mode-n').textContent=MS_MODES[MS.mode];
+  document.getElementById('ms-isi').textContent=MS.isi;
+  document.getElementById('ms-dist-n').textContent=MS.distract?'ON':'OFF';
+}
+function msStart(){
+  getAC();
+  document.getElementById('ms-cfg').style.display='none';
+  document.getElementById('ms-result').style.display='none';
+  document.getElementById('ms-btn').style.display='none';
+  const game=document.getElementById('ms-game');game.style.display='flex';
+  // Build targets
+  const tgts=document.getElementById('ms-tgts');tgts.innerHTML='';
+  const audioOnly=MS.mode===1;
+  document.getElementById('ms-tapzone-audio').style.display=audioOnly?'block':'none';
+  document.getElementById('ms-instr').textContent=audioOnly?'Ferme les yeux — écoute le son et TAPE ICI':'Touche la bonne couleur';
+  for(let i=0;i<MS.choices;i++){
+    const d=document.createElement('div');
+    d.className='cr-t';d.style.background=MS_COLORS[i];
+    if(audioOnly){d.style.opacity='0.25';d.style.cursor='default';}
+    else{
+      const idx=i;
+      d.addEventListener('click',()=>msTap(idx));
+      d.addEventListener('touchstart',e=>{e.preventDefault();msTap(idx);},{passive:false});
+    }
+    tgts.appendChild(d);
+  }
+  msRunning=true;msRound2=0;msRTs2=[];msErr2=0;msActive2=false;
+  msNextRound2();
+}
+function msNextRound2(){
+  if(!msRunning||msRound2>=msTotal2){msFinish2();return;}
+  msRound2++;
+  msActive2=false;
+  const stim=document.getElementById('ms-stim');
+  stim.style.background='var(--dim)';stim.textContent='';
+  document.getElementById('ms-fb2').textContent='';
+  // Distraction during ISI
+  if(MS.distract||MS.mode===3){
+    const n=1+Math.floor(Math.random()*2);
+    for(let i=0;i<n;i++)setTimeout(()=>playDist(),100+Math.random()*(MS.isi*700));
+  }
+  msTimer2=setTimeout(()=>{
+    if(!msRunning)return;
+    msStimIdx2=Math.floor(Math.random()*MS.choices);
+    const c=MS_COLORS[msStimIdx2],nm=MS_NAMES[msStimIdx2],freq=MS_FREQS[msStimIdx2];
+    const audioOnly=MS.mode===1;
+    const visualOnly=MS.mode===2;
+    if(!audioOnly){stim.style.background=c;stim.textContent=nm;}
+    if(!visualOnly){tone(freq,0.28,'sine');}
+    if(audioOnly){
+      // Flash quickly then hide
+      stim.style.background=c;
+      setTimeout(()=>{if(msActive2)stim.style.background='var(--dim)';},120);
+    }
+    msStimT2=Date.now();msActive2=true;
+    msTimer2=setTimeout(()=>{
+      if(!msRunning||!msActive2)return;
+      msActive2=false;msErr2++;
+      document.getElementById('ms-fb2').textContent='⏱ Trop lent!';
+      setTimeout(msNextRound2,500);
+    },2000);
+  },Math.round(MS.isi*1000));
+}
+function msTap(idx){
+  if(!msActive2)return;
+  clearTimeout(msTimer2);msActive2=false;
+  const rt=Date.now()-msStimT2;
+  const fb=document.getElementById('ms-fb2');
+  if(idx===msStimIdx2){msRTs2.push(rt);fb.style.color='var(--green)';fb.textContent='✓ '+rt+'ms';}
+  else{msErr2++;fb.style.color='var(--red)';fb.textContent='✗ Mauvais !';}
+  setTimeout(msNextRound2,500);
+}
+function msAudioTap(){if(msActive2)msTap(msStimIdx2);}
+function msFinish2(){
+  msRunning=false;
+  document.getElementById('ms-game').style.display='none';
+  const avg=msRTs2.length?Math.round(msRTs2.reduce((a,b)=>a+b,0)/msRTs2.length):0;
+  const pct=Math.round(msRTs2.length/msTotal2*100);
+  const res=document.getElementById('ms-result');res.style.display='block';
+  res.innerHTML=`<div class="res-block">
+    <div class="rr"><span class="rr-l">Temps moyen</span><span class="rr-v">${avg} ms</span></div>
+    <div class="rr"><span class="rr-l">Bonnes réponses</span><span class="rr-v">${msRTs2.length}/${msTotal2}</span></div>
+    <div class="rr"><span class="rr-l">Erreurs</span><span class="rr-v">${msErr2}</span></div>
+    <div class="rr"><span class="rr-l">Précision</span><span class="rr-v">${pct}%</span></div>
+  </div>`;
+  const btn=document.getElementById('ms-btn');btn.style.display='block';btn.textContent='REJOUER';
+  document.getElementById('ms-cfg').style.display='';
+}
+
+// ═══════════════════════════════════════════════
+// OUTIL : RÉACTION SOLO
+// ═══════════════════════════════════════════════
+const RSO={mode:0,delayA:2,delayB:8,trials:10};
+const RSO_MODES=['Son + Flash','Son seul (yeux fermés)','Flash seul'];
+let rsoRunning=false,rsoTrial=0,rsoRTs=[],rsoStimT=0,rsoActive=false,rsoTimer2=null;
+
+function rsoCfg(k,d){
+  if(k==='mode')RSO.mode=(RSO.mode+d+3)%3;
+  if(k==='delay'){
+    const pairs=[[1,4],[2,6],[2,8],[3,10],[1,3]];
+    let i=pairs.findIndex(p=>p[0]===RSO.delayA&&p[1]===RSO.delayB);
+    i=(i+d+pairs.length)%pairs.length;
+    [RSO.delayA,RSO.delayB]=pairs[i];
+  }
+  if(k==='trials')RSO.trials=Math.max(5,Math.min(20,RSO.trials+d));
+  document.getElementById('rso-mode-n').textContent=RSO_MODES[RSO.mode];
+  document.getElementById('rso-delay-n').textContent=RSO.delayA+'–'+RSO.delayB+'s';
+  document.getElementById('rso-trials-n').textContent=RSO.trials;
+}
+function rsoStart(){
+  getAC();
+  document.getElementById('rso-cfg').style.display='none';
+  document.getElementById('rso-result').style.display='none';
+  document.getElementById('rso-game').style.display='flex';
+  document.getElementById('rso-btn').style.display='none';
+  rsoRunning=true;rsoTrial=0;rsoRTs=[];rsoActive=false;
+  document.getElementById('rso-instr').textContent=RSO.mode===1?'FERME LES YEUX — appuie dès que tu entends le bip':'Appuie dès que tu vois/entends le signal';
+  const dot=document.getElementById('rso-dot');
+  dot.className='pvt-dot';dot.textContent='...';dot.style.cssText='';
+  rsoNextTrial2();
+}
+function rsoNextTrial2(){
+  if(!rsoRunning||rsoTrial>=RSO.trials){rsoFinish2();return;}
+  rsoTrial++;
+  document.getElementById('rso-trial-n').textContent=rsoTrial+'/'+RSO.trials;
+  const dot=document.getElementById('rso-dot');
+  dot.className='pvt-dot';dot.textContent='...';dot.style.cssText='';
+  rsoActive=false;
+  clearTimeout(rsoTimer2);
+  const delay=(RSO.delayA+Math.random()*(RSO.delayB-RSO.delayA))*1000;
+  rsoTimer2=setTimeout(()=>{
+    if(!rsoRunning)return;
+    rsoStimT=Date.now();rsoActive=true;
+    dot.className='pvt-dot go';dot.textContent='⚡';
+    if(RSO.mode!==2)tone(880,0.25,'sine',0.65);
+    if(RSO.mode===2||RSO.mode===0){dot.style.background='var(--red)';}
+    // Auto-miss after 1.5s
+    rsoTimer2=setTimeout(()=>{
+      if(!rsoRunning||!rsoActive)return;
+      rsoActive=false;dot.className='pvt-dot';dot.textContent='RATÉ';
+      setTimeout(rsoNextTrial2,700);
+    },1500);
+  },delay);
+}
+function rsoTap(){
+  if(!rsoRunning)return;
+  clearTimeout(rsoTimer2);
+  const dot=document.getElementById('rso-dot');
+  if(rsoActive){
+    const rt=Date.now()-rsoStimT;rsoActive=false;rsoRTs.push(rt);
+    dot.className='pvt-dot';dot.textContent=rt+'ms';dot.style.background='var(--green)';dot.style.color='#0F0F0F';
+    document.getElementById('rso-rt-last').textContent=rt+'ms';
+    setTimeout(rsoNextTrial2,700);
+  }else{
+    dot.className='pvt-dot early';dot.textContent='Trop tôt!';
+    setTimeout(()=>{dot.className='pvt-dot';dot.textContent='...';dot.style.cssText='';},800);
+  }
+}
+function rsoFinish2(){
+  rsoRunning=false;
+  document.getElementById('rso-game').style.display='none';
+  const n=rsoRTs.length;
+  const avg=n?Math.round(rsoRTs.reduce((a,b)=>a+b,0)/n):0;
+  const best=n?Math.min(...rsoRTs):0;
+  const worst=n?Math.max(...rsoRTs):0;
+  const res=document.getElementById('rso-result');res.style.display='block';
+  res.innerHTML=`<div class="res-block">
+    <div class="rr"><span class="rr-l">Temps moyen</span><span class="rr-v">${avg} ms</span></div>
+    <div class="rr"><span class="rr-l">Meilleur essai</span><span class="rr-v">${best} ms</span></div>
+    <div class="rr"><span class="rr-l">Pire essai</span><span class="rr-v">${worst} ms</span></div>
+    <div class="rr"><span class="rr-l">Essais réussis</span><span class="rr-v">${n}/${RSO.trials}</span></div>
+  </div>`;
+  const btn=document.getElementById('rso-btn');btn.style.display='block';btn.textContent='RECOMMENCER';
+  document.getElementById('rso-cfg').style.display='';
+}
+
+// ═══════════════════════════════════════════════
+// NAV SWITCH — Programme / Outils
+// ═══════════════════════════════════════════════
+function switchTab(tab){
+  const prog=document.getElementById('main-section');
+  const tools=document.getElementById('tools-wrap');
+  document.getElementById('stab-prog').classList.toggle('on',tab==='prog');
+  document.getElementById('stab-tools').classList.toggle('on',tab==='tools');
+  prog.style.display=tab==='prog'?'':'none';
+  tools.style.display=tab==='tools'?'block':'none';
+  if(tab==='tools')showToolGrid();
+}
+function showToolGrid(){
+  document.querySelectorAll('.tv').forEach(v=>v.classList.remove('show'));
+  document.getElementById('tool-grid-wrap').style.display='';
+}
+function openTool(id){
+  document.getElementById('tool-grid-wrap').style.display='none';
+  document.querySelectorAll('.tv').forEach(v=>v.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+}
+function openToolFromProg(id){
+  switchTab('tools');
+  openTool(id);
+}
+
+// ═══════════════════════════════════════════════
+// PVT — Psychomotor Vigilance Test
+// ═══════════════════════════════════════════════
+let pvtRunning=false,pvtMainTimer=null,pvtStimTimer=null,pvtStimStart=0,pvtRTs=[];
+function pvtStart(){
+  const dot=document.getElementById('pvt-dot');
+  const msg=document.getElementById('pvt-msg');
+  const rt=document.getElementById('pvt-rt');
+  const btn=document.getElementById('pvt-btn');
+  pvtRTs=[];pvtRunning=true;
+  btn.textContent='EN COURS…';btn.disabled=true;
+  dot.className='pvt-dot';dot.textContent='...';
+  msg.textContent='';rt.textContent='';
+  pvtScheduleNext();
+  pvtMainTimer=setTimeout(()=>pvtStop(),120000);
+}
+function pvtScheduleNext(){
+  if(!pvtRunning)return;
+  const dot=document.getElementById('pvt-dot');
+  dot.className='pvt-dot';dot.textContent='...';
+  pvtStimTimer=setTimeout(()=>{
+    if(!pvtRunning)return;
+    dot.className='pvt-dot go';dot.textContent='⚡';
+    pvtStimStart=Date.now();
+  },2000+Math.random()*8000);
+}
+function pvtTap(){
+  if(!pvtRunning)return;
+  const dot=document.getElementById('pvt-dot');
+  const msg=document.getElementById('pvt-msg');
+  const rt=document.getElementById('pvt-rt');
+  if(dot.classList.contains('go')){
+    const ms=Date.now()-pvtStimStart;
+    pvtRTs.push(ms);
+    rt.textContent=ms+'ms';
+    msg.textContent='✓ '+ms+'ms — '+(ms<250?'Super!':ms<350?'Bien':'Lent');
+    pvtScheduleNext();
+  }else{
+    clearTimeout(pvtStimTimer);
+    dot.className='pvt-dot early';
+    msg.textContent='Trop tôt ! Attends le signal.';
+    setTimeout(pvtScheduleNext,1000);
+  }
+}
+function pvtStop(){
+  pvtRunning=false;
+  clearTimeout(pvtMainTimer);clearTimeout(pvtStimTimer);
+  const dot=document.getElementById('pvt-dot');
+  const msg=document.getElementById('pvt-msg');
+  const btn=document.getElementById('pvt-btn');
+  btn.disabled=false;btn.textContent='RECOMMENCER';
+  if(!pvtRTs.length){dot.className='pvt-dot';dot.textContent='—';return;}
+  const avg=Math.round(pvtRTs.reduce((a,b)=>a+b,0)/pvtRTs.length);
+  const best=Math.min(...pvtRTs);
+  const worst=Math.max(...pvtRTs);
+  document.getElementById('pvt-avg').textContent=avg;
+  document.getElementById('pvt-best').textContent=best;
+  document.getElementById('pvt-worst').textContent=worst;
+  let label,col,desc;
+  if(avg<250){label='TOP FORME';col='var(--green)';desc='Fatigue faible — parfait pour une séance intense';}
+  else if(avg<350){label='NORMAL';col='var(--orange)';desc='Légère fatigue — adapte l\'intensité';}
+  else{label='FATIGUÉ';col='var(--red)';desc='Fatigue élevée — récupère avant une séance intense';}
+  dot.className='pvt-dot';dot.style.cssText='background:'+col+';color:#0F0F0F;font-size:14px;font-weight:900';
+  dot.textContent=label;
+  msg.textContent=desc+' ('+pvtRTs.length+' mesures)';
+}
+
+// ═══════════════════════════════════════════════
+// COLOR REACTION — SwitchedOn style
+// ═══════════════════════════════════════════════
+const CR_COLORS=[
+  {name:'Rouge',hex:'#FF5757'},{name:'Vert',hex:'#7ED957'},
+  {name:'Orange',hex:'#FFBD59'},{name:'Bleu',hex:'#4B9EFF'}
+];
+const crCfgV={isi:2,rounds:10,sets:3};
+let crSet=0,crRound=0,crActive=false,crStimIdx=-1,crTimer2=null,crRTs=[],crErrors=0,crStimT=0;
+
+function crCfg(k,d){
+  if(k==='isi')crCfgV.isi=Math.max(1,Math.min(5,crCfgV.isi+d));
+  if(k==='rounds')crCfgV.rounds=Math.max(3,Math.min(20,crCfgV.rounds+d));
+  if(k==='sets')crCfgV.sets=Math.max(1,Math.min(5,crCfgV.sets+d));
+  document.getElementById('cr-isi').textContent=crCfgV.isi;
+  document.getElementById('cr-rounds').textContent=crCfgV.rounds;
+  document.getElementById('cr-sets').textContent=crCfgV.sets;
+}
+function crStart(){
+  document.getElementById('cr-cfg').style.display='none';
+  document.getElementById('cr-result').style.display='none';
+  const game=document.getElementById('cr-game');
+  game.style.display='flex';
+  const tgts=document.getElementById('cr-tgts');
+  tgts.innerHTML='';
+  CR_COLORS.forEach((c,i)=>{
+    const d=document.createElement('div');
+    d.className='cr-t';d.style.background=c.hex;
+    const handler=()=>crTap(i);
+    d.addEventListener('click',handler);
+    d.addEventListener('touchstart',e=>{e.preventDefault();handler();},{passive:false});
+    tgts.appendChild(d);
+  });
+  crSet=1;crRound=0;crRTs=[];crErrors=0;crActive=false;
+  document.getElementById('cr-btn').style.display='none';
+  crNextRound();
+}
+function crNextRound(){
+  crRound++;
+  if(crRound>crCfgV.rounds){crSet++;crRound=1;}
+  if(crSet>crCfgV.sets){crFinish();return;}
+  document.getElementById('cr-prog').textContent='Set '+crSet+'/'+crCfgV.sets+' — Round '+crRound+'/'+crCfgV.rounds;
+  const stim=document.getElementById('cr-stim');
+  stim.style.background='var(--dim)';stim.textContent='';
+  document.getElementById('cr-fb').textContent='';
+  crActive=false;
+  crTimer2=setTimeout(()=>{
+    crStimIdx=Math.floor(Math.random()*4);
+    const c=CR_COLORS[crStimIdx];
+    stim.style.background=c.hex;stim.textContent=c.name;
+    crStimT=Date.now();crActive=true;
+  },crCfgV.isi*1000);
+}
+function crTap(idx){
+  if(!crActive)return;
+  crActive=false;clearTimeout(crTimer2);
+  const rt=Date.now()-crStimT;
+  const fb=document.getElementById('cr-fb');
+  if(idx===crStimIdx){
+    crRTs.push(rt);fb.style.color='var(--green)';fb.textContent='✓ '+rt+'ms';
+  }else{
+    crErrors++;fb.style.color='var(--red)';fb.textContent='✗ Mauvaise couleur';
+  }
+  setTimeout(crNextRound,600);
+}
+function crFinish(){
+  document.getElementById('cr-game').style.display='none';
+  const total=crCfgV.rounds*crCfgV.sets;
+  const avg=crRTs.length?Math.round(crRTs.reduce((a,b)=>a+b,0)/crRTs.length):0;
+  const pct=Math.round(crRTs.length/total*100);
+  const res=document.getElementById('cr-result');
+  res.style.display='block';
+  res.innerHTML=`<div class="res-block">
+    <div class="rr"><span class="rr-l">Temps moyen</span><span class="rr-v">${avg} ms</span></div>
+    <div class="rr"><span class="rr-l">Bonnes réponses</span><span class="rr-v">${crRTs.length}/${total}</span></div>
+    <div class="rr"><span class="rr-l">Erreurs</span><span class="rr-v">${crErrors}</span></div>
+    <div class="rr"><span class="rr-l">Précision</span><span class="rr-v">${pct}%</span></div>
+  </div>`;
+  const btn=document.getElementById('cr-btn');
+  btn.style.display='block';btn.textContent='REJOUER';
+  document.getElementById('cr-cfg').style.display='';
+}
+
+// ═══════════════════════════════════════════════
+// CARD GAME — Go/No-Go
+// ═══════════════════════════════════════════════
+let cardDeck=[],cardIdx=0,cardRunning=false,cardOk=0,cardErr=0,cardRTs=[],cardT=0,cardWaiting=false,cardAutoTimer=null;
+function cardStart(){
+  cardRunning=true;cardIdx=0;cardOk=0;cardErr=0;cardRTs=[];
+  ['card-ok','card-err'].forEach(id=>document.getElementById(id).textContent='0');
+  document.getElementById('card-avg').textContent='—';
+  document.getElementById('card-btn').style.display='none';
+  cardDeck=[];
+  for(let i=0;i<10;i++)cardDeck.push('red');
+  for(let i=0;i<10;i++)cardDeck.push('black');
+  for(let i=cardDeck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [cardDeck[i],cardDeck[j]]=[cardDeck[j],cardDeck[i]];
+  }
+  cardShowNext();
+}
+function cardShowNext(){
+  if(cardIdx>=20){cardEnd();return;}
+  const face=document.getElementById('card-face');
+  const color=cardDeck[cardIdx++];
+  face.style.background=color==='red'?'#FF5757':'#1c1c1c';
+  face.style.border=color==='red'?'none':'2px solid #444';
+  face.style.color=color==='red'?'#0F0F0F':'#F5F5F5';
+  face.textContent=color==='red'?(Math.random()<.5?'♥':'♦'):(Math.random()<.5?'♠':'♣');
+  cardT=Date.now();cardWaiting=true;
+  if(color==='black'){
+    cardAutoTimer=setTimeout(()=>{
+      if(!cardWaiting)return;
+      cardWaiting=false;cardOk++;
+      document.getElementById('card-ok').textContent=cardOk;
+      cardShowNext();
+    },1800);
+  }
+}
+function cardTap(){
+  if(!cardRunning||!cardWaiting)return;
+  clearTimeout(cardAutoTimer);cardWaiting=false;
+  const color=cardDeck[cardIdx-1];
+  const rt=Date.now()-cardT;
+  if(color==='red'){cardOk++;cardRTs.push(rt);document.getElementById('card-ok').textContent=cardOk;}
+  else{cardErr++;document.getElementById('card-err').textContent=cardErr;}
+  setTimeout(cardShowNext,300);
+}
+function cardEnd(){
+  cardRunning=false;
+  const avg=cardRTs.length?Math.round(cardRTs.reduce((a,b)=>a+b,0)/cardRTs.length):0;
+  document.getElementById('card-avg').textContent=avg||'—';
+  const face=document.getElementById('card-face');
+  face.style.background='var(--card)';face.style.border='2px solid var(--border)';
+  face.style.color='var(--white)';face.textContent='🏁';
+  const btn=document.getElementById('card-btn');
+  btn.style.display='block';btn.textContent='REJOUER';
+}
+
+// ═══════════════════════════════════════════════
+// MOT — Ball Tracking
+// ═══════════════════════════════════════════════
+let motAnimId=null,motBalls=[],motTargetIdxs=[],motPhase='idle',motTimer2=null;
+let motLevel=1,motScore=0,motRounds=0,motSelected=[];
+const MOT_N=6,MOT_R=20;
+
+function motStart(){
+  const canvas=document.getElementById('mot-canvas');
+  const W=canvas.clientWidth||360;
+  canvas.width=W;canvas.height=Math.round(W*0.71);
+  motSelected=[];motPhase='memorize';
+  document.getElementById('mot-btn').style.display='none';
+  document.getElementById('mot-msg').textContent='Mémorise les balles jaunes…';
+  motInitBalls(canvas);
+  canvas.onclick=motClick;
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();motClick(e.touches[0]);},{passive:false});
+  cancelAnimationFrame(motAnimId);
+  motAnimate(canvas);
+  motTimer2=setTimeout(()=>motStartMove(canvas),3000);
+}
+function motInitBalls(cv){
+  motBalls=[];motTargetIdxs=[];
+  const nT=Math.min(3,motLevel);
+  const used=new Set();
+  while(motTargetIdxs.length<nT){const r=Math.floor(Math.random()*MOT_N);if(!used.has(r)){used.add(r);motTargetIdxs.push(r);}}
+  for(let i=0;i<MOT_N;i++){
+    motBalls.push({x:MOT_R+Math.random()*(cv.width-2*MOT_R),y:MOT_R+Math.random()*(cv.height-2*MOT_R),
+      vx:(Math.random()-0.5)*(2+motLevel*0.6),vy:(Math.random()-0.5)*(2+motLevel*0.6),isT:motTargetIdxs.includes(i)});
+  }
+}
+function motStartMove(cv){
+  motPhase='track';
+  document.getElementById('mot-msg').textContent='Suis-les !';
+  motTimer2=setTimeout(()=>motAskSelect(),4000+motLevel*1000);
+}
+function motAskSelect(){
+  motPhase='select';motSelected=[];
+  const n=Math.min(3,motLevel);
+  document.getElementById('mot-msg').textContent='Clique sur les '+n+' balle(s) cible(s)';
+}
+function motClick(e){
+  if(motPhase!=='select')return;
+  const cv=document.getElementById('mot-canvas');
+  const rect=cv.getBoundingClientRect();
+  const sx=cv.width/rect.width,sy=cv.height/rect.height;
+  const cx=(e.clientX-rect.left)*sx,cy=(e.clientY-rect.top)*sy;
+  for(let i=0;i<motBalls.length;i++){
+    const b=motBalls[i];
+    if(Math.hypot(cx-b.x,cy-b.y)<MOT_R+6&&!motSelected.includes(i)){motSelected.push(i);break;}
+  }
+  const n=Math.min(3,motLevel);
+  if(motSelected.length>=n)motEval(cv);
+  else motDraw(cv);
+}
+function motEval(cv){
+  cancelAnimationFrame(motAnimId);
+  const correct=motSelected.filter(i=>motTargetIdxs.includes(i)).length;
+  const total=motTargetIdxs.length;
+  motScore+=correct;motRounds++;
+  if(correct===total&&motLevel<6)motLevel++;
+  document.getElementById('mot-score').textContent=motScore;
+  document.getElementById('mot-level').textContent=motLevel;
+  document.getElementById('mot-rounds').textContent=motRounds;
+  // Draw result
+  const ctx=cv.getContext('2d');ctx.fillStyle='#111';ctx.fillRect(0,0,cv.width,cv.height);
+  motBalls.forEach((b,i)=>{
+    ctx.beginPath();ctx.arc(b.x,b.y,MOT_R,0,Math.PI*2);
+    let fill='#2D2D2D';
+    if(motTargetIdxs.includes(i))fill=motSelected.includes(i)?'#7ED957':'#FF5757';
+    else if(motSelected.includes(i))fill='#FF5757';
+    ctx.fillStyle=fill;ctx.fill();
+  });
+  document.getElementById('mot-msg').textContent=correct+'/'+total+' correct — '+(correct===total?'Parfait!':'Raté');
+  const btn=document.getElementById('mot-btn');btn.style.display='block';btn.textContent='ROUND SUIVANT';
+}
+function motAnimate(cv){
+  const ctx=cv.getContext('2d');
+  function loop(){
+    motAnimId=requestAnimationFrame(loop);
+    if(motPhase==='track'||motPhase==='memorize'){
+      motBalls.forEach(b=>{
+        b.x+=b.vx;b.y+=b.vy;
+        if(b.x-MOT_R<0||b.x+MOT_R>cv.width)b.vx*=-1;
+        if(b.y-MOT_R<0||b.y+MOT_R>cv.height)b.vy*=-1;
+      });
+    }
+    motDraw(cv);
+  }
+  loop();
+}
+function motDraw(cv){
+  const ctx=cv.getContext('2d');
+  ctx.fillStyle='#111';ctx.fillRect(0,0,cv.width,cv.height);
+  motBalls.forEach((b,i)=>{
+    ctx.beginPath();ctx.arc(b.x,b.y,MOT_R,0,Math.PI*2);
+    let fill='#4B5563';
+    if(motPhase==='memorize'&&b.isT)fill='#FFBD59';
+    else if(motPhase==='select'&&motSelected.includes(i))fill='#4B9EFF';
+    ctx.fillStyle=fill;ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=1.5;ctx.stroke();
+  });
+}
+
+// ═══════════════════════════════════════════════
+// VISUAL SEQUENCE — Simon + bruit
+// ═══════════════════════════════════════════════
+const SEQ_COLS=['#FF5757','#7ED957','#FFBD59','#4B9EFF','#FF57FF','#57FFFF','#FF9900','#FFFFFF','#888'];
+let seqSeq=[],seqUser=[],seqPhase2='idle',seqLv=1,seqSc=0,seqSk=0;
+
+function seqStart(){
+  seqLv=1;seqSc=0;seqSk=0;
+  document.getElementById('seq-level').textContent=1;
+  document.getElementById('seq-score').textContent=0;
+  document.getElementById('seq-streak').textContent=0;
+  seqBuild();seqNewRound2();
+}
+function seqBuild(){
+  const g=document.getElementById('seq-grid');g.innerHTML='';
+  for(let i=0;i<9;i++){
+    const d=document.createElement('div');
+    d.id='sq-'+i;
+    d.style.cssText='border-radius:10px;height:80px;cursor:pointer;background:'+SEQ_COLS[i]+';opacity:0.3;transition:opacity .1s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;';
+    const h=()=>seqTap(i);
+    d.addEventListener('click',h);
+    d.addEventListener('touchstart',e=>{e.preventDefault();h();},{passive:false});
+    g.appendChild(d);
+  }
+}
+function seqNewRound2(){
+  seqPhase2='show';seqUser=[];seqSeq=[];
+  const len=2+seqLv;
+  for(let i=0;i<len;i++)seqSeq.push(Math.floor(Math.random()*9));
+  document.getElementById('seq-msg').textContent='Observe…';
+  document.getElementById('seq-btn').style.display='none';
+  let i=0;
+  const noise=seqLv>3?2:0;
+  function flash(){
+    if(i>=seqSeq.length){seqPhase2='input';document.getElementById('seq-msg').textContent='À toi !';return;}
+    const t=document.getElementById('sq-'+seqSeq[i]);
+    t.style.opacity='1';
+    if(noise>0){
+      for(let n=0;n<noise;n++){
+        const ni=Math.floor(Math.random()*9);
+        const nd=document.getElementById('sq-'+ni);
+        if(nd)setTimeout(()=>{nd.style.opacity='0.65';setTimeout(()=>nd.style.opacity='0.3',140);},60);
+      }
+    }
+    setTimeout(()=>{t.style.opacity='0.3';i++;setTimeout(flash,280);},520);
+  }
+  setTimeout(flash,350);
+}
+function seqTap(idx){
+  if(seqPhase2!=='input')return;
+  const t=document.getElementById('sq-'+idx);
+  t.style.opacity='1';setTimeout(()=>t.style.opacity='0.3',200);
+  seqUser.push(idx);
+  const pos=seqUser.length-1;
+  if(seqUser[pos]!==seqSeq[pos]){
+    seqSk=0;document.getElementById('seq-streak').textContent=0;
+    document.getElementById('seq-msg').textContent='✗ Erreur — réessaie';
+    seqPhase2='idle';
+    const b=document.getElementById('seq-btn');b.style.display='block';b.textContent='RÉESSAYER';
+    return;
+  }
+  if(seqUser.length===seqSeq.length){
+    seqSc++;seqSk++;
+    if(seqSk>=2)seqLv=Math.min(7,seqLv+1);
+    document.getElementById('seq-score').textContent=seqSc;
+    document.getElementById('seq-streak').textContent=seqSk;
+    document.getElementById('seq-level').textContent=seqLv;
+    document.getElementById('seq-msg').textContent='✓ Niveau '+seqLv+' !';
+    setTimeout(seqNewRound2,700);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// EYE TRAINING FPS
+// ═══════════════════════════════════════════════
+const EYE_MODES=['Poursuite','Saccades','Anti-saccade','Spotting'];
+const EYE_DESCS=[
+  'Suis le point rouge avec tes yeux — tête immobile',
+  'Saute d\'un cercle bleu à l\'autre — le plus vite possible',
+  'Regarde le miroir VERT à l\'opposé du point rouge',
+  'Repère et tape la cible orange parmi les distracteurs'
+];
+let eyeModeIdx=0,eyeDurV=60,eyeRunning=false,eyeAnimId2=null,eyeTimer3=null;
+let eyeAngle=0,eyeCountdown=0,sacTargs=[],sacNextTimer=null;
+
+function eyeModeNav(d){
+  eyeModeIdx=(eyeModeIdx+d+EYE_MODES.length)%EYE_MODES.length;
+  document.getElementById('eye-mode-n').textContent=EYE_MODES[eyeModeIdx];
+  document.getElementById('eye-msg').textContent=EYE_DESCS[eyeModeIdx];
+}
+function eyeCfg(k,d){
+  if(k==='dur')eyeDurV=Math.max(10,Math.min(180,eyeDurV+d));
+  document.getElementById('eye-dur').textContent=eyeDurV;
+}
+function eyeStart(){
+  const cv=document.getElementById('eye-canvas');
+  const W=cv.clientWidth||360;
+  cv.width=W;cv.height=Math.round(W*0.67);
+  eyeRunning=true;eyeCountdown=eyeDurV;eyeAngle=0;sacTargs=[];
+  const btn=document.getElementById('eye-btn');
+  btn.textContent='ARRÊTER';btn.onclick=eyeStop;
+  if(eyeModeIdx===1||eyeModeIdx===2)eyeNextSac(cv);
+  if(eyeModeIdx===3){eyeNewSpot(cv);cv.onclick=eyeSpotClick;cv.addEventListener('touchstart',e=>{e.preventDefault();eyeSpotClick(e.touches[0]);},{passive:false});}
+  cancelAnimationFrame(eyeAnimId2);
+  eyeLoop2(cv);
+  eyeTimer3=setInterval(()=>{eyeCountdown--;if(eyeCountdown<=0)eyeStop();},1000);
+}
+function eyeNextSac(cv){
+  if(!eyeRunning)return;
+  const m=20,W=cv.width,H=cv.height;
+  sacTargs=[{x:m+Math.random()*(W-2*m),y:m+Math.random()*(H-2*m)}];
+  sacNextTimer=setTimeout(()=>eyeNextSac(cv),900+Math.random()*1100);
+}
+function eyeNewSpot(cv){
+  if(!eyeRunning)return;
+  const m=24,W=cv.width,H=cv.height,n=3+Math.floor(Math.random()*5);
+  sacTargs=[];
+  for(let i=0;i<n;i++)sacTargs.push({x:m+Math.random()*(W-2*m),y:m+Math.random()*(H-2*m),isT:i===0,hit:false});
+  sacNextTimer=setTimeout(()=>eyeNewSpot(cv),1800+Math.random()*1200);
+}
+function eyeSpotClick(e){
+  if(!eyeRunning)return;
+  const cv=document.getElementById('eye-canvas');
+  const rect=cv.getBoundingClientRect();
+  const sx=cv.width/rect.width,sy=cv.height/rect.height;
+  const cx=(e.clientX-rect.left)*sx,cy=(e.clientY-rect.top)*sy;
+  sacTargs.forEach(t=>{if(t.isT&&!t.hit&&Math.hypot(cx-t.x,cy-t.y)<20)t.hit=true;});
+}
+function eyeLoop2(cv){
+  const ctx=cv.getContext('2d');
+  function draw(){
+    eyeAnimId2=requestAnimationFrame(draw);
+    const W=cv.width,H=cv.height;
+    ctx.fillStyle='#111';ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(245,245,245,0.25)';ctx.font='bold 13px system-ui';ctx.textAlign='right';
+    ctx.fillText(eyeCountdown+'s',W-10,18);
+    if(eyeModeIdx===0){
+      eyeAngle+=0.014;
+      const rx=W/2-40,ry=H/2-30;
+      const px=W/2+Math.cos(eyeAngle)*rx,py=H/2+Math.sin(eyeAngle)*ry;
+      ctx.beginPath();ctx.arc(px,py,16,0,Math.PI*2);ctx.fillStyle='#FF5757';ctx.fill();
+      ctx.beginPath();ctx.arc(px,py,7,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+    }else if(eyeModeIdx===1){
+      if(sacTargs.length){
+        const t=sacTargs[0];
+        ctx.beginPath();ctx.arc(t.x,t.y,20,0,Math.PI*2);ctx.fillStyle='rgba(75,158,255,0.2)';ctx.fill();
+        ctx.beginPath();ctx.arc(t.x,t.y,12,0,Math.PI*2);ctx.fillStyle='#4B9EFF';ctx.fill();
+      }
+    }else if(eyeModeIdx===2){
+      if(sacTargs.length){
+        const t=sacTargs[0];
+        ctx.beginPath();ctx.arc(t.x,t.y,14,0,Math.PI*2);ctx.fillStyle='#FF5757';ctx.fill();
+        const mx=W-t.x,my=H-t.y;
+        ctx.beginPath();ctx.arc(mx,my,12,0,Math.PI*2);ctx.strokeStyle='#7ED957';ctx.lineWidth=2.5;ctx.stroke();
+        ctx.fillStyle='rgba(126,217,87,0.7)';ctx.font='bold 11px system-ui';ctx.textAlign='center';
+        ctx.fillText('ICI →',mx,my-18);
+      }
+    }else if(eyeModeIdx===3){
+      sacTargs.forEach(t=>{
+        ctx.beginPath();ctx.arc(t.x,t.y,14,0,Math.PI*2);
+        ctx.fillStyle=t.hit?'#7ED957':t.isT?'#FFBD59':'#4B5563';ctx.fill();
+      });
+    }
+  }
+  draw();
+}
+function eyeStop(){
+  eyeRunning=false;cancelAnimationFrame(eyeAnimId2);clearInterval(eyeTimer3);clearTimeout(sacNextTimer);
+  const btn=document.getElementById('eye-btn');btn.textContent='RECOMMENCER';btn.onclick=eyeStart;
+  document.getElementById('eye-msg').textContent='Terminé — repose-toi 30 secondes';
+}
+
 
 // ═══════════════════════════════════════════════
 // INIT
